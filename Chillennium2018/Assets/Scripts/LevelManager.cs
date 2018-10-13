@@ -9,6 +9,9 @@ public class LevelManager : MonoBehaviour
 
     public static LevelManager Instance { get { return _instance; } }
 
+    [HideInInspector]
+    public bool isAPlayerDead = false;
+
     void Awake(){
         if(_instance == null)
         {

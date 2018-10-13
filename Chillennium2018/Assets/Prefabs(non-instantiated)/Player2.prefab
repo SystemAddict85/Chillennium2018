@@ -110,7 +110,8 @@ GameObject:
   - component: {fileID: 114850790135926762}
   - component: {fileID: 50975916691500586}
   - component: {fileID: 61977100040574760}
-  m_Layer: 0
+  - component: {fileID: 114020250665488392}
+  m_Layer: 8
   m_Name: Player2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -263,6 +264,17 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &114020250665488392
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1979609750926720}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 48e651dae94375b41b177c679ae06ec1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &114183254967646324
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -351,6 +363,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 04f8da2152a169e488196509552fe0d6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  activeSpell: 0
+  maxHealth: 0
+  currentHealth: 0
+  invincibilityDuration: 0
+  canBeDamaged: 1
 --- !u!114 &114850790135926762
 MonoBehaviour:
   m_ObjectHideFlags: 1

@@ -57,9 +57,7 @@ public class Projectile : MonoBehaviour
         move.SetSpeed(speed);
         gameObject.SetActive(true);
         timerStarted = true;
-    }
-
-    
+    }    
 
     private void Update()
     {
@@ -72,7 +70,6 @@ public class Projectile : MonoBehaviour
                 currentTime = 0f;
                 gameObject.SetActive(false);
                 parentPool.Return(this);
-
             }
         }
 

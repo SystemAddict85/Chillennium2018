@@ -1,12 +1,14 @@
 ﻿using UnityEngine;
 using System.Collections;
-using System.Collections.Generic;
+using System;
 
 public class LevelManager : MonoBehaviour
 {
     private bool canWarp = false;
 
     public int totalNumberOfRooms = 5;
+
+    public int roomsVisited = 0;
 
     public Room[,] rooms;
     Vector2Int playerCoords;
@@ -16,7 +18,6 @@ public class LevelManager : MonoBehaviour
     public static LevelManager Instance { get { return _instance; } }   
 
     public Room GetRoom { get { return rooms[playerCoords.x, playerCoords.y]; } }
-    public bool isRoomCleared = false;
 
     [HideInInspector]
     public bool isAPlayerDead = false;
@@ -34,12 +35,20 @@ public class LevelManager : MonoBehaviour
         rooms = new Room[totalNumberOfRooms, totalNumberOfRooms];
         int coord = totalNumberOfRooms - 1 / 2;
         playerCoords = new Vector2Int(coord, coord);
-    }    
+        InitializeRoom();
+    }
+
+    private void InitializeRoom()
+    {
+        var room = Instantiate(Resources.Load("Prefabs/TileMap")) as Room;
+        roomsVisited++;
+    }
 
     public void Warp(WarpTile.WarpDirection warpDir)
     {
-        if (canWarp && isRoomCleared)
+        if (isRoomCleared)
         {
+
             // instantiate new tilemap
             // warp
         }
@@ -74,11 +83,4 @@ public class LevelManager : MonoBehaviour
         else
             return new Vector2Int(0, 0);
     }
-}
-
-public class Room : MonoBehaviour
-{
-    public bool isVisited = false;
-    int roomId;
-    List<Enemy> enemies = new List<Enemy>();
 }

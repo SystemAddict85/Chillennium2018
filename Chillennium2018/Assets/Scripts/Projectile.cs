@@ -31,11 +31,11 @@ public class Projectile : MonoBehaviour
     {
         if(gameObject.layer == LayerMask.NameToLayer("Player Projectile"))
         {
-            oppositeLayer = LayerMask.NameToLayer("Enemy Projectile");
+            oppositeLayer = LayerMask.NameToLayer("Enemy");
         }
         else
         {
-            oppositeLayer = LayerMask.NameToLayer("Player Projectile");
+            oppositeLayer = LayerMask.NameToLayer("Player");
         }
     }
 
@@ -82,6 +82,7 @@ public class Projectile : MonoBehaviour
         {
             timerStarted = false;
             currentTime = 0f;
+            gameObject.SetActive(false);
             parentPool.Return(this);
         }
     }

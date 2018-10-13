@@ -8,7 +8,9 @@ public class Projectile : MonoBehaviour
     [SerializeField]
     private float lifeDuration;
     private Vector2 direction;
-    
+
+    public Spell.SpellType spellType = Spell.SpellType.GROUND;
+
     private Movement move;
     private ProjectilePool parentPool;
     private bool timerStarted = false;

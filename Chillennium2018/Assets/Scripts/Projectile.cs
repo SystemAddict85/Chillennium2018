@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System;
 
 public class Projectile : MonoBehaviour
 {    
@@ -17,10 +18,25 @@ public class Projectile : MonoBehaviour
 
     private float currentTime = 0f;
 
+    private LayerMask oppositeLayer;
+
     void Awake()
     {
+        SetOppositeLayer();
         move = GetComponent<Movement>();
         lifeDuration = 5f;
+    }
+
+    private void SetOppositeLayer()
+    {
+        if(gameObject.layer == LayerMask.NameToLayer("Player Projectile"))
+        {
+            oppositeLayer = LayerMask.NameToLayer("Enemy Projectile");
+        }
+        else
+        {
+            oppositeLayer = LayerMask.NameToLayer("Player Projectile");
+        }
     }
 
     private void OnEnable()
@@ -43,6 +59,8 @@ public class Projectile : MonoBehaviour
         timerStarted = true;
     }
 
+    
+
     private void Update()
     {
         if (timerStarted)
@@ -61,11 +79,16 @@ public class Projectile : MonoBehaviour
         move.Move(direction);
     }
 
-    private void OnTriggerEnter2D(Collider2D collision)
+    private void OnTriggerEnter2D(Collider2D col)
     {
-        timerStarted = false;
-        currentTime = 0f;
-        parentPool.Return(this);
+        if (col.gameObject.layer == oppositeLayer)
+        {
+            timerStarted = false;
+            currentTime = 0f;
+            parentPool.Return(this);
+        }
     }
+
+    
 
 }

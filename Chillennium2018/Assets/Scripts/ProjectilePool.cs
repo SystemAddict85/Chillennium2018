@@ -31,10 +31,14 @@ public class ProjectilePool : MonoBehaviour
 
     public Projectile Get()
     {
-        return readyQueue.Dequeue();
+        if (readyQueue.Count > 0)
+            return readyQueue.Dequeue();
+        else
+            return null;
     }
 
     public void Return(Projectile proj) {
+        proj.gameObject.SetActive(false);
         readyQueue.Enqueue(proj);
     }
 }

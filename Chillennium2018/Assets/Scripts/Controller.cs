@@ -10,9 +10,13 @@ public class Controller : MonoBehaviour
 
     protected float horizontal;
     protected float vertical;
+    protected float horizontalAim;
+    protected float verticalAim;
 
     public virtual float Horizontal { get { return horizontal; } }
     public virtual float Vertical { get { return vertical; } }
+    public virtual float HorizontalAim { get { return horizontalAim; } }
+    public virtual float VerticalAim { get { return verticalAim; } }
 
     protected virtual void Awake()
     {

@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 
 public class PlayerController : Controller
 {
@@ -7,6 +8,32 @@ public class PlayerController : Controller
     protected override void Update()
     {
         GetMovementVector();
+        GetRightStick();
+    }
+
+    private void GetRightStick()
+    {
+        string hor = "HorizontalRight", vert = "VerticalRight";
+        if (playerNumber == ControllerType.PLAYER_ONE)
+        {
+            hor += "1";
+            vert += "1";
+        }
+        else
+        {
+            hor += "2";
+            vert += "2";
+        }
+        horizontalAim = Input.GetAxisRaw(hor);
+        if (horizontalAim < 0)
+            horizontalAim = -1;
+        else if(horizontalAim > 0)
+            horizontalAim = 1;
+        verticalAim = Input.GetAxisRaw(vert);
+        if (verticalAim < 0)
+            verticalAim = -1;
+        else if (verticalAim > 0)
+            verticalAim = 1;
     }
 
     public int GetSpellButtons()

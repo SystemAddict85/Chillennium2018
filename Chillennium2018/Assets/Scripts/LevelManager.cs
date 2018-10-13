@@ -15,6 +15,9 @@ public class LevelManager : MonoBehaviour
 
     public static LevelManager Instance { get { return _instance; } }   
 
+    public Room GetRoom { get { return rooms[playerCoords.x, playerCoords.y]; } }
+    public bool isRoomCleared = false;
+
     [HideInInspector]
     public bool isAPlayerDead = false;
 
@@ -35,7 +38,7 @@ public class LevelManager : MonoBehaviour
 
     public void Warp(WarpTile.WarpDirection warpDir)
     {
-        if (canWarp)
+        if (canWarp && isRoomCleared)
         {
             // instantiate new tilemap
             // warp
@@ -78,6 +81,4 @@ public class Room : MonoBehaviour
     public bool isVisited = false;
     int roomId;
     List<Enemy> enemies = new List<Enemy>();
-
-
 }

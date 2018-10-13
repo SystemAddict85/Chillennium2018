@@ -45,13 +45,13 @@ public class PlayerController : Controller
         string hor = "Horizontal", vert = "Vertical";
         if (playerNumber == ControllerType.PLAYER_ONE)
         {
-            hor += 1;
-            vert += 1;
+            hor += "1";
+            vert += "1";
         }
         else
         {
-            hor += 2;
-            vert += 2;
+            hor += "2";
+            vert += "2";
         }
         horizontal = Input.GetAxisRaw(hor);
         vertical = Input.GetAxisRaw(vert);

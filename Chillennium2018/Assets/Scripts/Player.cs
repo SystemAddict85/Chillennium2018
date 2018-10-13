@@ -1,15 +1,91 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using UnityEngine;
+
 
 public class Player : Character {
 
-	// Use this for initialization
-	void Start () {
-		
-	}
-	
-	// Update is called once per frame
-	void Update () {
-		
-	}
+    private void Awake()
+    {
+        maxHealth = 6f;
+        currentHealth = maxHealth;
+    }
+
+    public void PowerUp(Spell.SpellType spellType)
+    {
+        switch (spellType)
+        {
+            case Spell.SpellType.GROUND:
+                break;
+            case Spell.SpellType.LIGHTNING:
+                break;
+            case Spell.SpellType.ICE:
+                break;
+        }
+    }
+
+    public void Heal()
+    {
+        if (currentHealth < maxHealth)
+        {
+            currentHealth += 2;
+            if (currentHealth > maxHealth)
+                currentHealth = maxHealth;
+        }
+    }
+
+    private void OnTriggerEnter2D(Collider2D col)
+    {
+        if (col.gameObject.layer == LayerMask.NameToLayer("Player Projectile"))
+        {
+            Effectiveness effectiveness = Effectiveness.NORMAL;
+            switch (spellType)
+            {
+                case Spell.SpellType.GROUND:
+                    switch (col.GetComponent<Projectile>().spellType)
+                    {
+                        case Spell.SpellType.GROUND:
+                            effectiveness = Effectiveness.NORMAL;
+                            break;
+                        case Spell.SpellType.LIGHTNING:
+                            effectiveness = Effectiveness.REDUCED;
+                            break;
+                        case Spell.SpellType.ICE:
+                            effectiveness = Effectiveness.SUPER;
+                            break;
+                    }
+                    break;
+                case Spell.SpellType.LIGHTNING:
+                    switch (col.GetComponent<Projectile>().spellType)
+                    {
+                        case Spell.SpellType.GROUND:
+                            effectiveness = Effectiveness.SUPER;
+                            break;
+                        case Spell.SpellType.LIGHTNING:
+                            effectiveness = Effectiveness.NORMAL;
+                            break;
+                        case Spell.SpellType.ICE:
+                            effectiveness = Effectiveness.REDUCED;
+                            break;
+                    }
+                    break;
+                case Spell.SpellType.ICE:
+                    switch (col.GetComponent<Projectile>().spellType)
+                    {
+                        case Spell.SpellType.GROUND:
+                            effectiveness = Effectiveness.REDUCED;
+                            break;
+                        case Spell.SpellType.LIGHTNING:
+                            effectiveness = Effectiveness.SUPER;
+                            break;
+                        case Spell.SpellType.ICE:
+                            effectiveness = Effectiveness.NORMAL;
+                            break;
+                    }
+                    break;
+            }
+            //Debug.Log(effectiveness);
+            Damage(1, effectiveness);
+        }
+    }
 }

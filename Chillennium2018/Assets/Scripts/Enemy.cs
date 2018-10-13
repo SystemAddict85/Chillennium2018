@@ -3,6 +3,11 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class Enemy : Character  {
+    private void Awake()
+    {
+        maxHealth = 10f;
+        currentHealth = maxHealth;
+    }
 
     private void OnTriggerEnter2D(Collider2D col)
     {
@@ -54,8 +59,9 @@ public class Enemy : Character  {
                     }
                     break;
             }
-            Debug.Log(effectiveness);
-            //damage
+            //Debug.Log(effectiveness);
+            Damage(1, effectiveness);
         }
     }
+
 }

@@ -20,7 +20,7 @@ public class PlayerCollisionDetection : MonoBehaviour {
                         case Spell.SpellType.LIGHTNING:
                             effectiveness = Character.Effectiveness.REDUCED;
                             break;
-                        case Spell.SpellType.ICE:
+                        case Spell.SpellType.WATER:
                             effectiveness = Character.Effectiveness.SUPER;
                             break;
                     }
@@ -34,12 +34,12 @@ public class PlayerCollisionDetection : MonoBehaviour {
                         case Spell.SpellType.LIGHTNING:
                             effectiveness = Character.Effectiveness.NORMAL;
                             break;
-                        case Spell.SpellType.ICE:
+                        case Spell.SpellType.WATER:
                             effectiveness = Character.Effectiveness.REDUCED;
                             break;
                     }
                     break;
-                case Spell.SpellType.ICE:
+                case Spell.SpellType.WATER:
                     switch (player.activeSpell)
                     {
                         case Spell.SpellType.GROUND:
@@ -48,7 +48,7 @@ public class PlayerCollisionDetection : MonoBehaviour {
                         case Spell.SpellType.LIGHTNING:
                             effectiveness = Character.Effectiveness.SUPER;
                             break;
-                        case Spell.SpellType.ICE:
+                        case Spell.SpellType.WATER:
                             effectiveness = Character.Effectiveness.NORMAL;
                             break;
                     }

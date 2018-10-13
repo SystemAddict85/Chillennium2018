@@ -43,9 +43,9 @@ public class LevelManager : MonoBehaviour
     {
         var roomGo = Instantiate(Resources.Load("Prefabs/Tilemap"), transform) as GameObject;
         var room = roomGo.GetComponent<Room>();
-        Debug.Log(room.name);
+        //Debug.Log(room.name);
         rooms[playerCoords.x, playerCoords.y] = room;
-        Debug.Log(rooms[playerCoords.x, playerCoords.y].name);
+       // Debug.Log(rooms[playerCoords.x, playerCoords.y].name);
         roomsVisited++;
     }
 

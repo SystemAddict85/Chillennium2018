@@ -18,7 +18,7 @@ public class Player : Character {
                 break;
             case Spell.SpellType.LIGHTNING:
                 break;
-            case Spell.SpellType.ICE:
+            case Spell.SpellType.WATER:
                 break;
         }
     }

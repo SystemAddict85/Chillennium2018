@@ -30,4 +30,9 @@ public class Movement : MonoBehaviour
     {
         transform.position += dir * moveSpeed * Time.deltaTime;
     }
+    
+    public void SetSpeed(float speed)
+    {
+        moveSpeed = speed;
+    }
 }

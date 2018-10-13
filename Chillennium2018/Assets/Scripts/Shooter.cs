@@ -15,8 +15,11 @@ public class Shooter : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetMouseButtonDown(0))
+        if (Input.GetAxisRaw("Horizontal1") != 0 || Input.GetAxisRaw("Vertical1") != 0)
+        {
+           // Debug.Log("hmm");
             Shoot();
+        }
     }
 
     public void Shoot(int poolNum = 0)
@@ -24,8 +27,8 @@ public class Shooter : MonoBehaviour
         var proj = pools[poolNum].Get();
         proj.transform.position = transform.position;
         proj.gameObject.SetActive(true);
-        
-        proj.Shoot(new Vector2(0,-1));
+       // Debug.Log("trying");
+        proj.Shoot(new Vector2(Input.GetAxis("Horizontal1"), Input.GetAxis("Vertical1")));
     }
 
 

@@ -14,7 +14,7 @@ public class ControllerMapping : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetButtonDown("Fire1"))
-            Debug.Log("that one");
+        if (Input.GetAxisRaw("Vertical2") != 0)
+            Debug.Log(Input.GetAxisRaw("Vertical2"));
     }
 }

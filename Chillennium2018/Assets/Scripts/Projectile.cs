@@ -8,7 +8,7 @@ public class Projectile : MonoBehaviour
     [SerializeField]
     private float lifeDuration;
     private Vector2 direction;
-
+    
     private Movement move;
     private ProjectilePool parentPool;
     private bool timerStarted = false;
@@ -18,6 +18,7 @@ public class Projectile : MonoBehaviour
     void Awake()
     {
         move = GetComponent<Movement>();
+        lifeDuration = 5f;
     }
 
     private void OnEnable()
@@ -33,7 +34,7 @@ public class Projectile : MonoBehaviour
     public void Shoot(Vector2 dir)
     {
         timerStarted = false;
-        currentTime = 0;
+        currentTime = 0f;
         direction = dir;
         move.SetSpeed(speed);
         gameObject.SetActive(true);
@@ -49,6 +50,7 @@ public class Projectile : MonoBehaviour
             {
                 timerStarted = false;
                 currentTime = 0f;
+                gameObject.SetActive(false);
                 parentPool.Return(this);
 
             }

@@ -25,7 +25,7 @@ public class Spell : MonoBehaviour
         if (spellInt != -1)
         {
             SpellType spell = (SpellType)spellInt;
-            Debug.Log(spell);
+            //Debug.Log(spell);
             foreach (var s in spellUI.spellButtons)
                 if (s.spellType == spell)
                 {

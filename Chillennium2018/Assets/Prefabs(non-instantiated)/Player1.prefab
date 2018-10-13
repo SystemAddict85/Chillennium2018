@@ -315,7 +315,7 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
-  shootRate: 20
+  shootRate: 40
 --- !u!114 &114923380645062260
 MonoBehaviour:
   m_ObjectHideFlags: 1

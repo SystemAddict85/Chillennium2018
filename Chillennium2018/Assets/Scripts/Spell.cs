@@ -41,6 +41,7 @@ public class Spell : MonoBehaviour
         {
             SpellType spell = (SpellType)spellInt;
             activeSpell = spell;
+            // change player SpellType
             //Debug.Log(spell);
             foreach (var s in spellUI.spellButtons)
                 if (s.spellType == spell)

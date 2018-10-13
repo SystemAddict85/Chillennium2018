@@ -77,7 +77,8 @@ GameObject:
   - component: {fileID: 114015840760639084}
   - component: {fileID: 50900368045152834}
   - component: {fileID: 61602680745109676}
-  m_Layer: 0
+  - component: {fileID: 114438991643061334}
+  m_Layer: 8
   m_Name: Player1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -298,6 +299,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 04f8da2152a169e488196509552fe0d6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  activeSpell: 0
+  maxHealth: 0
+  currentHealth: 0
+  invincibilityDuration: 0
+  canBeDamaged: 1
 --- !u!114 &114140786992242698
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -347,6 +353,17 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   spellType: 0
+--- !u!114 &114438991643061334
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1498618996725428}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 48e651dae94375b41b177c679ae06ec1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &114907845105229392
 MonoBehaviour:
   m_ObjectHideFlags: 1

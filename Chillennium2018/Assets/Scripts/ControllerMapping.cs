@@ -14,7 +14,7 @@ public class ControllerMapping : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetAxisRaw("Vertical2") != 0)
-            Debug.Log(Input.GetAxisRaw("Vertical2"));
+        if (Input.GetAxisRaw("VerticalRight1") != 0)
+            Debug.Log(Input.GetAxisRaw("VerticalRight1"));
     }
 }

@@ -100,6 +100,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 5
   lifeDuration: 0.5
+  spellType: 1
 --- !u!114 &114535903457675144
 MonoBehaviour:
   m_ObjectHideFlags: 1

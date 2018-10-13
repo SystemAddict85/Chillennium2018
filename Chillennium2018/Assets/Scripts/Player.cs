@@ -1,15 +1,36 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using UnityEngine;
 
 public class Player : Character {
 
-	// Use this for initialization
-	void Start () {
-		
-	}
-	
-	// Update is called once per frame
-	void Update () {
-		
-	}
+    private void Awake()
+    {
+        maxHealth = 6f;
+        currentHealth = maxHealth;
+    }
+
+    public void PowerUp(Spell.SpellType spellType)
+    {
+        switch (spellType)
+        {
+            case Spell.SpellType.GROUND:
+                break;
+            case Spell.SpellType.LIGHTNING:
+                break;
+            case Spell.SpellType.ICE:
+                break;
+        }
+    }
+
+    public void Heal()
+    {
+        int toHeal = Random.Range(1, 3);
+        if (currentHealth < maxHealth)
+        {
+            currentHealth += toHeal;
+            if (currentHealth > maxHealth)
+                currentHealth = maxHealth;
+        }
+    }
 }

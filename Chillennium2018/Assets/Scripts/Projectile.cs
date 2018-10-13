@@ -9,7 +9,9 @@ public class Projectile : MonoBehaviour
     [SerializeField]
     private float lifeDuration;
     private Vector2 direction;
-    
+
+    public Spell.SpellType spellType = Spell.SpellType.GROUND;
+
     private Movement move;
     private ProjectilePool parentPool;
     private bool timerStarted = false;
@@ -29,11 +31,11 @@ public class Projectile : MonoBehaviour
     {
         if(gameObject.layer == LayerMask.NameToLayer("Player Projectile"))
         {
-            oppositeLayer = LayerMask.NameToLayer("Enemy Projectile");
+            oppositeLayer = LayerMask.NameToLayer("Enemy");
         }
         else
         {
-            oppositeLayer = LayerMask.NameToLayer("Player Projectile");
+            oppositeLayer = LayerMask.NameToLayer("Player");
         }
     }
 
@@ -55,9 +57,7 @@ public class Projectile : MonoBehaviour
         move.SetSpeed(speed);
         gameObject.SetActive(true);
         timerStarted = true;
-    }
-
-    
+    }    
 
     private void Update()
     {
@@ -70,7 +70,6 @@ public class Projectile : MonoBehaviour
                 currentTime = 0f;
                 gameObject.SetActive(false);
                 parentPool.Return(this);
-
             }
         }
 
@@ -83,6 +82,7 @@ public class Projectile : MonoBehaviour
         {
             timerStarted = false;
             currentTime = 0f;
+            gameObject.SetActive(false);
             parentPool.Return(this);
         }
     }

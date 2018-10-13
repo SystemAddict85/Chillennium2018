@@ -11,10 +11,18 @@ public class Projectile : MonoBehaviour
 
     private Movement move;
     private ProjectilePool parentPool;
+    private bool timerStarted = false;
+
+    private float currentTime = 0f;
 
     void Awake()
     {
         move = GetComponent<Movement>();
+    }
+
+    private void OnEnable()
+    {
+        currentTime = 0f;
     }
 
     public void SetPool(ProjectilePool pool)
@@ -24,18 +32,35 @@ public class Projectile : MonoBehaviour
 
     public void Shoot(Vector2 dir)
     {
+        timerStarted = false;
+        currentTime = 0;
         direction = dir;
         move.SetSpeed(speed);
         gameObject.SetActive(true);
+        timerStarted = true;
     }
 
     private void Update()
     {
+        if (timerStarted)
+        {
+            currentTime += Time.deltaTime;
+            if (currentTime >= lifeDuration)
+            {
+                timerStarted = false;
+                currentTime = 0f;
+                parentPool.Return(this);
+
+            }
+        }
+
         move.Move(direction);
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
+        timerStarted = false;
+        currentTime = 0f;
         parentPool.Return(this);
     }
 

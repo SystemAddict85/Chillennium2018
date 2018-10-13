@@ -93,6 +93,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   moveSpeed: 5
+  hasController: 0
 --- !u!212 &212093417945754536
 SpriteRenderer:
   m_ObjectHideFlags: 1

@@ -80,6 +80,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   moveSpeed: 5
+  hasController: 0
 --- !u!114 &114861048625704298
 MonoBehaviour:
   m_ObjectHideFlags: 1

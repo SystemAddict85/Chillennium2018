@@ -18,9 +18,9 @@ public class WarpTile : MonoBehaviour {
 
     private void OnTriggerEnter2D(Collider2D col)
     {
-        if(col.gameObject.tag == "Player")
+        if(col.gameObject.layer == LayerMask.NameToLayer("Player"))
         {
-
+            LevelManager.Instance.Warp(warpDir);
         }
     }
 

@@ -12,13 +12,13 @@ public class Room : MonoBehaviour
         enemies.Add(enemy);
     }
 
-    public bool RemoveEnemyAndCheckForRoomComplete(Enemy enemy)
+    public void RemoveEnemyAndCheckForRoomComplete(Enemy enemy)
     {
         enemies.Remove(enemy);
         if (enemies.Count == 0)
         {
             isRoomComplete = true;
+            LevelManager.Instance.ClearRoom();
         }
-        return isRoomComplete;
     }
 }

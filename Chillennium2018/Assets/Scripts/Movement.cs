@@ -2,9 +2,12 @@
 
 public class Movement : MonoBehaviour
 {
-    private Controller control;
     [SerializeField]
     private float moveSpeed;
+    [SerializeField]
+    private bool hasController = true;
+
+    private Controller control;    
 
     private void Awake()
     {
@@ -13,7 +16,10 @@ public class Movement : MonoBehaviour
 
     private void Update()
     {
-        CheckForMovement();
+        if (hasController)
+        {
+            CheckForMovement();
+        }
     }
 
     private void CheckForMovement()
@@ -29,5 +35,10 @@ public class Movement : MonoBehaviour
     public void Move(Vector3 dir)
     {
         transform.position += dir * moveSpeed * Time.deltaTime;
+    }
+    
+    public void SetSpeed(float speed)
+    {
+        moveSpeed = speed;
     }
 }

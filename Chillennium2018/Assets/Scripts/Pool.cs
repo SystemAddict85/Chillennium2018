@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -20,6 +21,7 @@ public class Pool : MonoBehaviour
 		var pool = new GameObject("Pool-" + (prefab as Component).name).AddComponent<Pool>();
 		pool.Initialize(prefab);
 		pools.Add(prefab, pool);
+        Debug.Log("3");
 		return pool;
 	}
 
@@ -39,6 +41,7 @@ public class Pool : MonoBehaviour
         var pool = new GameObject("Pool-" + (prefab as Component).name).AddComponent<Pool>();
         pool.Initialize(prefab, initialSize);
         pools.Add(prefab, pool);
+        Debug.Log("4");
         return pool;
     }
 
@@ -49,10 +52,10 @@ public class Pool : MonoBehaviour
 
 	private void Initialize(IPoolable poolablePrefab, int initialSize = DEFUALT_POOL_SIZE)
 	{
-		this.prefab = (poolablePrefab as Component).gameObject;
+		prefab = (poolablePrefab as Component).gameObject;
 		for (int i = 0; i < initialSize; i++)
 		{
-			var pooledObject = (Instantiate(this.prefab) as GameObject).GetComponent<IPoolable>();
+			var pooledObject = (Instantiate(prefab) as GameObject).GetComponent<IPoolable>();
 			(pooledObject as Component).gameObject.name += " " + i;
 
 			pooledObject.OnDestroyEvent += () => AddObjectToAvailable(pooledObject);
@@ -69,16 +72,18 @@ public class Pool : MonoBehaviour
 
 	private IPoolable Get()
 	{
+        Debug.Log("8");
         lock (this)
         {
             if (objects.Count == 0)
             {
+                Debug.Log("9");
                 int amountToGrowPool = Mathf.Max((disabledObjects.Count / 10), 1);
-                Initialize(this.prefab.GetComponent<IPoolable>(), amountToGrowPool);
+                Initialize(prefab.GetComponent<IPoolable>(), amountToGrowPool);
             }
-
+            Debug.Log("10");
             var pooledObject = objects.Dequeue();
-
+            Debug.Log("1");
             return pooledObject;
         }
 	}
@@ -86,11 +91,11 @@ public class Pool : MonoBehaviour
 	public IPoolable Get(Vector3 position, Quaternion rotation)
 	{
 		var pooledObject = Get();
-
+        Debug.Log("7");
         (pooledObject as Component).transform.position = position;
 		(pooledObject as Component).transform.rotation = rotation;
 		(pooledObject as Component).gameObject.SetActive(true);
-
+        Debug.Log("2");
         return pooledObject;
 	}
 

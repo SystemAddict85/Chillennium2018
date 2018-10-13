@@ -29,6 +29,7 @@ public class PoolPreparer : MonoBehaviour
                 else
                 {
                     Pool.Prewarm(poolablePrefab, initialPoolSize);
+                    Debug.Log("5");
                 }
             }
         }

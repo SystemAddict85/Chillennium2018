@@ -6,6 +6,16 @@ public class Room : MonoBehaviour
     int roomId;
     List<Enemy> enemies = new List<Enemy>();
     public bool isRoomComplete = false;
+    public Dictionary<WarpTile.WarpDirection, WarpTile> warpTiles = new Dictionary<WarpTile.WarpDirection, WarpTile>();
+
+    private void Awake()
+    {
+        foreach(var w in GetComponentsInChildren<WarpTile>())
+        {
+            warpTiles.Add(w.warpDir, w);
+        }
+    }
+
 
     public void AddEnemy(Enemy enemy)
     {
@@ -25,5 +35,11 @@ public class Room : MonoBehaviour
     public void StartAnimation(string direction)
     {
         GetComponent<Animator>().SetTrigger(direction);
+    }
+
+    public void EndAnimation()
+    {
+        if (!isRoomComplete)
+            LevelManager.Instance.StartWaitToWarp();
     }
 }

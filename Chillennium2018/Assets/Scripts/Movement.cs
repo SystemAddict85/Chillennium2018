@@ -35,9 +35,12 @@ public class Movement : MonoBehaviour
 
     public void Move(Vector3 dir)
     {
-        transform.position += dir * moveSpeed * Time.deltaTime;
+        if (canMove)
+        {
+            transform.position += dir * moveSpeed * Time.deltaTime;
+        }
     }
-    
+
     public void SetSpeed(float speed)
     {
         moveSpeed = speed;

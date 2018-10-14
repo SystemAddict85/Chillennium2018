@@ -71,7 +71,7 @@ public class PlayerController : Controller
 
     public int GetSpellButtons()
     {
-        string spell1, spell2, spell3, dash;
+        string spell1, spell2, spell3;
         spell1 = "Ground";
         spell2 = "Lightning";
         spell3 = "Water";

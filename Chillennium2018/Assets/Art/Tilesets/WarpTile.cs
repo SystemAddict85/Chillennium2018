@@ -6,9 +6,8 @@ using UnityEngine.Tilemaps;
 public class WarpTile : MonoBehaviour {
 
     public enum WarpDirection { LEFT, RIGHT, UP, DOWN };
-
-    [SerializeField]
-    private WarpDirection warpDir;
+        
+    public WarpDirection warpDir;
 
     public void Awake()
     {
@@ -23,14 +22,33 @@ public class WarpTile : MonoBehaviour {
         }
     }
 
-    private Vector2 GetPlayerStartingPosition(int playerNum)
+    public Vector2 GetPlayerStartingPosition(Controller.ControllerType controllerPlayer)
     {
-        playerNum -= 1;
-        var playerPos = (WarpStartingPosition.PlayerPosition)playerNum;
-
+        var playerPos = (WarpStartingPosition.PlayerPosition)controllerPlayer;
         var starts = GetComponentsInChildren<WarpStartingPosition>();
         var pos = starts[0].playerStartingPos == playerPos ? starts[0].transform.position : starts[1].transform.position;
         return pos;        
+    }
+
+    public static WarpDirection GetOppositeDirection(WarpDirection wDir)
+    {
+        WarpDirection w = WarpDirection.DOWN;
+        switch (wDir)
+        {
+            case WarpDirection.LEFT:
+                w = WarpDirection.RIGHT;
+                break;
+            case WarpDirection.RIGHT:
+                w = WarpDirection.LEFT;
+                break;
+            case WarpDirection.UP:
+                w = WarpDirection.DOWN;
+                break;
+            case WarpDirection.DOWN:
+                w = WarpDirection.UP;
+                break;
+        }
+        return w;
     }
 
 }

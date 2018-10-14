@@ -24,6 +24,7 @@ GameObject:
   - component: {fileID: 61145842179778554}
   - component: {fileID: 114356876157716256}
   - component: {fileID: 114897445589580912}
+  - component: {fileID: 58144128333745262}
   m_Layer: 9
   m_Name: Lightning Enemy
   m_TagString: Untagged
@@ -64,6 +65,21 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
+--- !u!58 &58144128333745262
+CircleCollider2D:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1845594853647282}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  serializedVersion: 2
+  m_Radius: 0.96
 --- !u!61 &61145842179778554
 BoxCollider2D:
   m_ObjectHideFlags: 1

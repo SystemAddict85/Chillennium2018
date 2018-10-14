@@ -24,6 +24,7 @@ GameObject:
   - component: {fileID: 61293680725668930}
   - component: {fileID: 114026392103351048}
   - component: {fileID: 114865927744854082}
+  - component: {fileID: 58024362603798102}
   m_Layer: 9
   m_Name: Ground Enemy
   m_TagString: Untagged
@@ -64,6 +65,21 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
+--- !u!58 &58024362603798102
+CircleCollider2D:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1388303592412032}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  serializedVersion: 2
+  m_Radius: 0.96
 --- !u!61 &61293680725668930
 BoxCollider2D:
   m_ObjectHideFlags: 1

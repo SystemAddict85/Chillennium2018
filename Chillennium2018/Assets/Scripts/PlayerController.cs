@@ -3,12 +3,37 @@ using UnityEngine;
 
 public class PlayerController : Controller
 {
-    public ControllerType playerNumber = ControllerType.PLAYER_ONE;    
+    public ControllerType playerNumber = ControllerType.PLAYER_ONE;
+    private bool isDashing = false;
+    private Vector2 lastMove;
 
     protected override void Update()
     {
         GetMovementVector();
         GetRightStick();
+    }
+
+    private void LateUpdate()
+    {
+        if (lastMove != Vector2.zero)
+        {
+            GetDashButton();
+        }
+    }
+
+    public void GetDashButton()
+    {
+        string dash = "Dash";
+        if (playerNumber == ControllerType.PLAYER_ONE)
+            dash += "1";
+        else
+            dash += "2";
+
+        if (Input.GetButtonDown(dash))
+        {
+            isDashing = true;
+            GetComponent<Dashing>().SetDashDirection(lastMove);
+        }
     }
 
     private void GetRightStick()
@@ -27,7 +52,7 @@ public class PlayerController : Controller
         horizontalAim = Input.GetAxisRaw(hor);
         if (horizontalAim < 0)
             horizontalAim = -1;
-        else if(horizontalAim > 0)
+        else if (horizontalAim > 0)
             horizontalAim = 1;
         verticalAim = Input.GetAxisRaw(vert);
         if (verticalAim < 0)
@@ -38,7 +63,7 @@ public class PlayerController : Controller
 
     public int GetSpellButtons()
     {
-        string spell1, spell2, spell3;
+        string spell1, spell2, spell3, dash;
         spell1 = "Ground";
         spell2 = "Lightning";
         spell3 = "Water";
@@ -82,5 +107,6 @@ public class PlayerController : Controller
         }
         horizontal = Input.GetAxisRaw(hor);
         vertical = Input.GetAxisRaw(vert);
+        lastMove = new Vector2(horizontal, vertical);
     }
 }

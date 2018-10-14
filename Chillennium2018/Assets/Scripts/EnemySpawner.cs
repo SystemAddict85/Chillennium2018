@@ -71,6 +71,7 @@ public class EnemySpawner : MonoBehaviour {
             }
         }
     }
+
     private Vector2 SpawnBounds()
     {
         Vector2 spawnBounds = boxCollider2D.bounds.extents;
@@ -78,6 +79,7 @@ public class EnemySpawner : MonoBehaviour {
         spawnBounds.y = Random.Range(-spawnBounds.y, spawnBounds.y);
         return spawnBounds;
     }
+
     private void Spawn(Vector2 pos, string enemyName)
     {
         Debug.Log("spawning " + enemyName + " at: " + pos);

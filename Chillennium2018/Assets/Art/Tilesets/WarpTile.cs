@@ -8,7 +8,7 @@ public class WarpTile : MonoBehaviour {
     public enum WarpDirection { LEFT, RIGHT, UP, DOWN };
 
     [SerializeField]
-    private WarpDirection warpDir;    
+    private WarpDirection warpDir;
 
     public void Awake()
     {
@@ -30,8 +30,7 @@ public class WarpTile : MonoBehaviour {
 
         var starts = GetComponentsInChildren<WarpStartingPosition>();
         var pos = starts[0].playerStartingPos == playerPos ? starts[0].transform.position : starts[1].transform.position;
-        return pos;
-        
+        return pos;        
     }
 
 }

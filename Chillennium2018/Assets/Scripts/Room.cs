@@ -21,4 +21,9 @@ public class Room : MonoBehaviour
             LevelManager.Instance.ClearRoom();
         }
     }
+
+    public void StartAnimation(string direction)
+    {
+        GetComponent<Animator>().SetTrigger(direction);
+    }
 }

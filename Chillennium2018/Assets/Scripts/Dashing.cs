@@ -11,7 +11,7 @@ public class Dashing : MonoBehaviour
     private float dashSpeed = 8f;
     private Controller control;
     private Vector3 dir;
-    private BoxCollider2D levelBounds;
+    private Collider2D levelBounds;
 
     [SerializeField]
     private float dashTime;
@@ -31,7 +31,7 @@ public class Dashing : MonoBehaviour
 
     private void Start()
     {
-        levelBounds = LevelManager.Instance.GetComponent<BoxCollider2D>();
+        levelBounds = LevelManager.Instance.GetComponent<Collider2D>();
     }
 
     private void Update()

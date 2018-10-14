@@ -15,10 +15,15 @@ public class PlayerController : Controller
 
     private void LateUpdate()
     {
-        if (lastMove != Vector2.zero)
+        if (lastMove != Vector2.zero && !isDashing)
         {
             GetDashButton();
         }
+    }
+
+    public void FinishDashing()
+    {
+        isDashing = false;
     }
 
     public void GetDashButton()
@@ -38,27 +43,30 @@ public class PlayerController : Controller
 
     private void GetRightStick()
     {
-        string hor = "HorizontalRight", vert = "VerticalRight";
-        if (playerNumber == ControllerType.PLAYER_ONE)
+        if (!isDashing)
         {
-            hor += "1";
-            vert += "1";
+            string hor = "HorizontalRight", vert = "VerticalRight";
+            if (playerNumber == ControllerType.PLAYER_ONE)
+            {
+                hor += "1";
+                vert += "1";
+            }
+            else
+            {
+                hor += "2";
+                vert += "2";
+            }
+            horizontalAim = Input.GetAxisRaw(hor);
+            if (horizontalAim < 0)
+                horizontalAim = -1;
+            else if (horizontalAim > 0)
+                horizontalAim = 1;
+            verticalAim = Input.GetAxisRaw(vert);
+            if (verticalAim < 0)
+                verticalAim = -1;
+            else if (verticalAim > 0)
+                verticalAim = 1;
         }
-        else
-        {
-            hor += "2";
-            vert += "2";
-        }
-        horizontalAim = Input.GetAxisRaw(hor);
-        if (horizontalAim < 0)
-            horizontalAim = -1;
-        else if (horizontalAim > 0)
-            horizontalAim = 1;
-        verticalAim = Input.GetAxisRaw(vert);
-        if (verticalAim < 0)
-            verticalAim = -1;
-        else if (verticalAim > 0)
-            verticalAim = 1;
     }
 
     public int GetSpellButtons()

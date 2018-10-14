@@ -4,16 +4,18 @@ using UnityEngine;
 
 public class Dashing : MonoBehaviour
 {
-
-    private bool isDashing = false;
+    [HideInInspector]
+    public bool isDashing = false;
 
     [SerializeField]
     private float dashSpeed = 8f;
     private Controller control;
     private Vector3 dir;
+    private BoxCollider2D levelBounds;
 
     [SerializeField]
     private float dashTime;
+    private float currentTime;
 
     private void Awake()
     {
@@ -24,6 +26,12 @@ public class Dashing : MonoBehaviour
     {
         this.dir = dir;
         isDashing = true;
+        GetComponent<Movement>().ToggleMovement(false);
+    }
+
+    private void Start()
+    {
+        levelBounds = LevelManager.Instance.GetComponent<BoxCollider2D>();
     }
 
     private void Update()
@@ -34,20 +42,44 @@ public class Dashing : MonoBehaviour
     private void CheckIfDashing()
     {
         if (isDashing)
+        {
             Dash();
+        }
     }
 
-    private bool CheckBounds()
+    private bool CheckBounds(Vector3 pos)
     {
-        Vector2 spawnBounds = boxCollider2D.bounds.extents;
-        spawnBounds.x = Random.Range(-spawnBounds.x, spawnBounds.x);
-        spawnBounds.y = Random.Range(-spawnBounds.y, spawnBounds.y);
-        return spawnBounds;
+        Vector2 boundary = levelBounds.bounds.extents;
+        Debug.Log(pos);
+        Debug.Log(boundary);
+        return Mathf.Abs(pos.x) < Mathf.Abs(boundary.x) && Mathf.Abs(pos.y) < Mathf.Abs(boundary.y);      
     }
 
     public void Dash()
     {
-        transform.position += dir * dashSpeed * Time.deltaTime;
+        currentTime += Time.deltaTime;
+        if (currentTime >= dashTime)
+        {
+            FinishDash();
+        }
+        else
+        {
+            if (CheckBounds(transform.position + dir * dashSpeed * Time.deltaTime))
+                transform.position += dir * dashSpeed * Time.deltaTime;
+            else
+            {
+                FinishDash();
+            }
+        }
+
     }
+    private void FinishDash()
+    {
+        isDashing = false;
+        currentTime = 0;
+        GetComponent<PlayerController>().FinishDashing();
+        GetComponent<Movement>().ToggleMovement(true);
+    }
+    
 
 }

@@ -22,7 +22,7 @@ public class EnemySpawner : MonoBehaviour {
     
     private void Awake()
     {
-        boxCollider2D = GetComponent<BoxCollider2D>();
+        
         if(enemyNames.Length == 0)
         {
             Debug.Log("Put enemy names into array");
@@ -43,6 +43,7 @@ public class EnemySpawner : MonoBehaviour {
 
     private void Start()
     {
+        boxCollider2D = LevelManager.Instance.GetComponent<BoxCollider2D>();
         room = LevelManager.Instance.GetRoom;
         Initialize();
     }

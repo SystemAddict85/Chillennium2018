@@ -18,10 +18,10 @@ public class PlayerCollisionDetection : MonoBehaviour {
                             effectiveness = Character.Effectiveness.NORMAL;
                             break;
                         case Spell.SpellType.LIGHTNING:
-                            effectiveness = Character.Effectiveness.REDUCED;
+                            effectiveness = Character.Effectiveness.SUPER;
                             break;
                         case Spell.SpellType.WATER:
-                            effectiveness = Character.Effectiveness.SUPER;
+                            effectiveness = Character.Effectiveness.REDUCED;
                             break;
                     }
                     break;
@@ -29,13 +29,13 @@ public class PlayerCollisionDetection : MonoBehaviour {
                     switch (player.activeSpell)
                     {
                         case Spell.SpellType.GROUND:
-                            effectiveness = Character.Effectiveness.SUPER;
+                            effectiveness = Character.Effectiveness.REDUCED;
                             break;
                         case Spell.SpellType.LIGHTNING:
                             effectiveness = Character.Effectiveness.NORMAL;
                             break;
                         case Spell.SpellType.WATER:
-                            effectiveness = Character.Effectiveness.REDUCED;
+                            effectiveness = Character.Effectiveness.SUPER;
                             break;
                     }
                     break;
@@ -43,10 +43,10 @@ public class PlayerCollisionDetection : MonoBehaviour {
                     switch (player.activeSpell)
                     {
                         case Spell.SpellType.GROUND:
-                            effectiveness = Character.Effectiveness.REDUCED;
+                            effectiveness = Character.Effectiveness.SUPER;
                             break;
                         case Spell.SpellType.LIGHTNING:
-                            effectiveness = Character.Effectiveness.SUPER;
+                            effectiveness = Character.Effectiveness.REDUCED;
                             break;
                         case Spell.SpellType.WATER:
                             effectiveness = Character.Effectiveness.NORMAL;

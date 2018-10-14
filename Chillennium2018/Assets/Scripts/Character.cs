@@ -27,10 +27,10 @@ public class Character : MonoBehaviour
     public void Damage(int amount, Effectiveness effectiveness)
     {
         var dashing = GetComponent<Dashing>();
-        if (dashing && dashing.isDashing)
+        if ((dashing && dashing.isDashing) || effectiveness == Effectiveness.REDUCED)
             return;
 
-        if (canBeDamaged)
+        if (canBeDamaged )
         {            
             Invincibility();
             switch (effectiveness)

@@ -76,8 +76,8 @@ GameObject:
   - component: {fileID: 114907845105229392}
   - component: {fileID: 114015840760639084}
   - component: {fileID: 50900368045152834}
+  - component: {fileID: 114914157080065260}
   - component: {fileID: 61602680745109676}
-  - component: {fileID: 114438991643061334}
   m_Layer: 8
   m_Name: Player1
   m_TagString: Untagged
@@ -193,7 +193,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1498618996725428}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.56190723, y: -0.055559117, z: -0.014164453}
+  m_LocalPosition: {x: -3.485761, y: 0.3427165, z: -0.014164453}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4344414005433652}
@@ -300,10 +300,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   activeSpell: 0
-  maxHealth: 0
-  currentHealth: 0
-  invincibilityDuration: 0
+  maxHealth: 6
+  currentHealth: 6
+  invincibilityDuration: 1
+  blinkIntervals: 10
   canBeDamaged: 1
+  isPlayerDead: 0
 --- !u!114 &114140786992242698
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -340,7 +342,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1846127e5bfae2b4ab7ea4bf8d502ff3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  spellButtons: []
+  spellButtons:
+  - {fileID: 114054075975504332}
+  - {fileID: 114211997142578788}
+  - {fileID: 114431303030434466}
 --- !u!114 &114431303030434466
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -353,17 +358,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   spellType: 0
---- !u!114 &114438991643061334
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1498618996725428}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 48e651dae94375b41b177c679ae06ec1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &114907845105229392
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -380,6 +374,20 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   shootRate: 40
+--- !u!114 &114914157080065260
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1498618996725428}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7b6727c1261fdc849affb8ac54e06d78, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isDashing: 0
+  dashSpeed: 6
+  dashTime: 0.25
 --- !u!114 &114923380645062260
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -519,7 +527,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 5d1cd0d8b436862488f22b487b8664ac, type: 3}
+  m_Sprite: {fileID: 21300002, guid: 5d1cd0d8b436862488f22b487b8664ac, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0

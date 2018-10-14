@@ -6,8 +6,9 @@ public class Movement : MonoBehaviour
     private float moveSpeed;
     [SerializeField]
     private bool hasController = true;
+    private Controller control;
 
-    private Controller control;    
+    private bool canMove = true;
 
     private void Awake()
     {
@@ -40,5 +41,9 @@ public class Movement : MonoBehaviour
     public void SetSpeed(float speed)
     {
         moveSpeed = speed;
+    }
+    public void ToggleMovement(bool enabled)
+    {
+        canMove = enabled;
     }
 }

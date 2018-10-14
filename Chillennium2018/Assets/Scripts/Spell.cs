@@ -8,7 +8,7 @@ public class Spell : MonoBehaviour
     [SerializeField]
     private SpellUI spellUI;
 
-    public enum SpellType { GROUND, LIGHTNING, ICE };
+    public enum SpellType { GROUND, LIGHTNING, WATER };
     private PlayerController control;
     private Shooter shoot;
 
@@ -41,7 +41,7 @@ public class Spell : MonoBehaviour
         {
             SpellType spell = (SpellType)spellInt;
             activeSpell = spell;
-            // change player SpellType
+            //change player SpellType
             //Debug.Log(spell);
             foreach (var s in spellUI.spellButtons)
                 if (s.spellType == spell)

@@ -41,7 +41,7 @@ public class PlayerController : Controller
         string spell1, spell2, spell3;
         spell1 = "Ground";
         spell2 = "Lightning";
-        spell3 = "Ice";
+        spell3 = "Water";
 
         if (playerNumber == ControllerType.PLAYER_ONE)
         {

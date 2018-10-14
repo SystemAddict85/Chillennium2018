@@ -26,7 +26,7 @@ public class Enemy : Character  {
             Debug.Log("todo: drop Revive");
         }
 
-        
+        LevelManager.Instance.GetRoom.RemoveEnemyAndCheckForRoomComplete(this);
         base.Die();
     }
 
@@ -46,7 +46,7 @@ public class Enemy : Character  {
                         case Spell.SpellType.LIGHTNING:
                             effectiveness = Effectiveness.REDUCED;
                             break;
-                        case Spell.SpellType.ICE:
+                        case Spell.SpellType.WATER:
                             effectiveness = Effectiveness.SUPER;
                             break;
                     }
@@ -60,12 +60,12 @@ public class Enemy : Character  {
                         case Spell.SpellType.LIGHTNING:
                             effectiveness = Effectiveness.NORMAL;
                             break;
-                        case Spell.SpellType.ICE:
+                        case Spell.SpellType.WATER:
                             effectiveness = Effectiveness.REDUCED;
                             break;
                     }
                     break;
-                case Spell.SpellType.ICE:
+                case Spell.SpellType.WATER:
                     switch (col.GetComponent<Projectile>().spellType)
                     {
                         case Spell.SpellType.GROUND:
@@ -74,7 +74,7 @@ public class Enemy : Character  {
                         case Spell.SpellType.LIGHTNING:
                             effectiveness = Effectiveness.SUPER;
                             break;
-                        case Spell.SpellType.ICE:
+                        case Spell.SpellType.WATER:
                             effectiveness = Effectiveness.NORMAL;
                             break;
                     }

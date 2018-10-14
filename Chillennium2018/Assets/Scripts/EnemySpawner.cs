@@ -26,7 +26,7 @@ public class EnemySpawner : MonoBehaviour {
         if(enemyNames.Length == 0)
         {
             Debug.Log("Put enemy names into array");
-            for (int i = 0; i < 10; i++)
+            for (int i = 0; i < 10; i++) // change 10 to howmany names we need I guess
             {
                 int index = (int)Random.Range(0f, (float)allEnemyNames.Length);
                 enemyNamesToSpawn.Enqueue(allEnemyNames[index]);

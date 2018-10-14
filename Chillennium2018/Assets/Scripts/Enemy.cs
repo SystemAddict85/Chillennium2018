@@ -12,8 +12,12 @@ public class Enemy : Character  {
         currentHealth = maxHealth;
     }
 
+
     public override void Die()
     {
+        Controller.ControllerType controllerType = passedController.playerNumber;
+        ScoreManager.Instance.AddScore(controllerType);
+
         float chanceToDrop = Random.Range(0f, 1f);
         chanceToDrop *= 100f;
         if (chanceToDrop <= 8f)//powerup

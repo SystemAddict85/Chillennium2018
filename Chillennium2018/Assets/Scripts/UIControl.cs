@@ -16,7 +16,7 @@ public class UIControl : MonoBehaviour
     {
         HeartPanel = GetComponentInChildren<HorizontalLayoutGroup>().gameObject;
         var hearts = HeartPanel.GetComponentsInChildren<Image>();
-        Debug.Log(player.currentHealth);
+        //Debug.Log(player.currentHealth);
 
 
 

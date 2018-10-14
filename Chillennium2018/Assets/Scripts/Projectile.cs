@@ -12,6 +12,8 @@ public class Projectile : MonoBehaviour
 
     public Spell.SpellType spellType = Spell.SpellType.GROUND;
 
+    private PlayerController controller;
+
     private Movement move;
     private ProjectilePool parentPool;
     private bool timerStarted = false;
@@ -49,8 +51,9 @@ public class Projectile : MonoBehaviour
         parentPool = pool;
     }
 
-    public void Shoot(Vector2 dir)
+    public void Shoot(Vector2 dir, PlayerController contr = null)
     {
+        controller = contr;
         timerStarted = false;
         currentTime = 0f;
         direction = dir;
@@ -85,8 +88,9 @@ public class Projectile : MonoBehaviour
         {
             if(oppositeLayer == LayerMask.NameToLayer("Enemy"))
             {
+
                 var enemy = col.gameObject.GetComponent<Enemy>();
-                enemy.Damage(1, Character.DetermineAttackEffect(spellType, enemy.activeSpell));
+                enemy.Damage(1, Character.DetermineAttackEffect(spellType, enemy.activeSpell), controller);
             }            
             else if(oppositeLayer == LayerMask.NameToLayer("Player"))
             {

@@ -13,8 +13,7 @@ public class ScoreManager : MonoBehaviour
 
     public int player1Score = 0;
     public int player2Score = 0;
-
-    private static bool created = false;
+    
 
     void Awake()
     {
@@ -27,14 +26,10 @@ public class ScoreManager : MonoBehaviour
         {
             Destroy(this.gameObject);
         }
-
-
-        if (!created)
-        {
-            DontDestroyOnLoad(this.gameObject);
-            created = true;
-            Debug.Log("Awake: " + this.gameObject);
-        }
+        
+       
+        DontDestroyOnLoad(this.gameObject);
+        
     }
 
     public void AddScore(Controller.ControllerType controllerType)

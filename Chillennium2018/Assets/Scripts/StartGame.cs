@@ -12,11 +12,10 @@ public class StartGame : MonoBehaviour {
     {
         startButton = GetComponent<Button>();
         startButton.onClick.AddListener(OnMouseClick);
-
     }
     public void OnMouseClick()
     {
-        SceneManager.LoadScene("MainGame");
+        SceneManager.LoadScene("controllertest");
     }
 
 

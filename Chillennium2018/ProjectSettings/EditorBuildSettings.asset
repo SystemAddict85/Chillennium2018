@@ -8,13 +8,16 @@ EditorBuildSettings:
   - enabled: 0
     path: Assets/Scenes/TestScene.unity
     guid: 2cda990e2423bbf4892e6590ba056729
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/MainMenu.unity
     guid: e52cb930ca2e8ab4f848abdf0c054e68
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/MainGame.unity
     guid: 52f34dc620ab7ae49bfd25b9bf025966
   - enabled: 1
+    path: Assets/Scenes/controllertest.unity
+    guid: 016f4cd505c608b489dd8d8c8ef7b288
+  - enabled: 0
     path: Assets/Scenes/GameOver.unity
     guid: 5bcac34de7d8763468c402bd808889fd
   m_configObjects: {}

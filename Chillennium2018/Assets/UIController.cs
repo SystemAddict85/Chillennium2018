@@ -13,7 +13,7 @@ public class UIController : MonoBehaviour
     private void Awake()
     {
         uiControl = GetComponentsInChildren<UIControl>();
-        Debug.Log(uiControl.Length);
+        //Debug.Log(uiControl.Length);
 
         if (_instance == null)
         {

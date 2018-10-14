@@ -1,8 +1,14 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
-public class Player : Character {
+public class Player : Character
+{
+
+    [SerializeField]
+    private GameObject gameOverText;
 
     public bool isPlayerDead = false;
 
@@ -26,7 +32,12 @@ public class Player : Character {
         }
         else
         {
+            GlobalStuff.FreezeSpawning();
+            GlobalStuff.FreezeAllMovement();
             Debug.Log("Game Over");
+            gameOverText.SetActive(true);
+
+            StartCoroutine(EndGameWait());
             // TODO: GameOver
         }
 
@@ -36,7 +47,7 @@ public class Player : Character {
     {
         controller.hasControl = false;
         GetComponent<Movement>().canMove = false;
-        foreach(var col in GetComponentsInChildren<Collider2D>())
+        foreach (var col in GetComponentsInChildren<Collider2D>())
         {
             col.enabled = false;
         }
@@ -61,14 +72,14 @@ public class Player : Character {
         GetComponentInChildren<SpriteRenderer>().enabled = true;
     }
 
-    public override void Damage(int amount, Effectiveness effectiveness)
+    public override void Damage(int amount, Effectiveness effectiveness, PlayerController passedController = null)
     {
         base.Damage(amount, effectiveness);
         if (controller.playerNumber == Controller.ControllerType.PLAYER_ONE)
         {
             UIController.Instance.UpdateHearts(0);
         }
-        else if(controller.playerNumber == Controller.ControllerType.PLAYER_TWO)
+        else if (controller.playerNumber == Controller.ControllerType.PLAYER_TWO)
         {
             UIController.Instance.UpdateHearts(1);
         }
@@ -104,5 +115,12 @@ public class Player : Character {
         {
             UIController.Instance.UpdateHearts(1);
         }
+    }
+
+    IEnumerator EndGameWait()
+    {
+        yield return new WaitForSeconds(5f);
+        Debug.Log("Waiting");
+        SceneManager.LoadScene("GameOver");
     }
 }

@@ -10,11 +10,11 @@ public class Shooter : MonoBehaviour
     private float shootRate = 20f;          // the higher the number, the smaller the interval
     private bool readyToShoot = true;
 
-    private Controller controller;
+    private PlayerController controller;
 
     private void Awake()
     {
-        controller = GetComponent<Controller>();
+        controller = GetComponent<PlayerController>();
     }
 
     IEnumerator WaitToShoot()
@@ -35,7 +35,7 @@ public class Shooter : MonoBehaviour
             {
                 proj.transform.position = transform.position;
                 proj.gameObject.SetActive(true);
-                proj.Shoot(new Vector2(controller.HorizontalAim, controller.VerticalAim));
+                proj.Shoot(new Vector2(controller.HorizontalAim, controller.VerticalAim), controller);
             }
             else
             {

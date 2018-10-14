@@ -6,19 +6,23 @@ using UnityEngine.UI;
 
 public class EndGame : MonoBehaviour
 {
+    private static EndGame _instance;
+    public static EndGame Instance { get { return _instance; } }
 
-    public Button endButton;
-
-    void Start()
+    private void Awake()
     {
-        endButton = GetComponent<Button>();
-        endButton.onClick.AddListener(OnMouseClick);
-
+        if (_instance == null)
+        {
+            _instance = this;
+        }
+        else if (_instance != this)
+        {
+            Destroy(this.gameObject);
+        }
     }
-    public void OnMouseClick()
+
+    public void GameOver()
     {
         SceneManager.LoadScene("GameOver");
     }
-
-
 }

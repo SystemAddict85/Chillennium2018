@@ -7,7 +7,7 @@ public class Character : MonoBehaviour
     protected Controller control;
     public enum Effectiveness { REDUCED, NORMAL, SUPER };
     public Spell.SpellType activeSpell = Spell.SpellType.GROUND;
-
+    protected PlayerController passedController;
     [SerializeField]
     protected int maxHealth;
     public int currentHealth;
@@ -23,7 +23,7 @@ public class Character : MonoBehaviour
         Destroy(gameObject);
     }
 
-    public virtual void Damage(int amount, Effectiveness effectiveness)
+    public virtual void Damage(int amount, Effectiveness effectiveness, PlayerController controller = null)
     {
         var dashing = GetComponent<Dashing>();
         if ((dashing && dashing.isDashing) || effectiveness == Effectiveness.REDUCED || !canBeDamaged)
@@ -44,6 +44,7 @@ public class Character : MonoBehaviour
         }
         if (currentHealth <= 0)
         {
+            passedController = controller;
             currentHealth = 0;
             Die();
         }

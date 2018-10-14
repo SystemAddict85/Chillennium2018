@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Enemy : Character  {
 
-    private float enemyStartingHealth;
+    private int enemyStartingHealth;
 
     private void Awake()
     {

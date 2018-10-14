@@ -155,8 +155,9 @@ GameObject:
   - component: {fileID: 53493742}
   - component: {fileID: 53493744}
   - component: {fileID: 53493743}
+  - component: {fileID: 53493745}
   m_Layer: 5
-  m_Name: Panel
+  m_Name: Player1 UI
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -219,6 +220,18 @@ CanvasRenderer:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 53493741}
   m_CullTransparentMesh: 0
+--- !u!114 &53493745
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 53493741}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 76bacc1c6da7c574ab15cb3e40ce1591, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  player: {fileID: 469319981}
 --- !u!1 &55300223
 GameObject:
   m_ObjectHideFlags: 0
@@ -430,7 +443,7 @@ GameObject:
   - component: {fileID: 180975677}
   - component: {fileID: 180975676}
   m_Layer: 5
-  m_Name: TextMeshPro Text (1)
+  m_Name: Score
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -710,7 +723,7 @@ GameObject:
   - component: {fileID: 296152428}
   - component: {fileID: 296152427}
   m_Layer: 5
-  m_Name: TextMeshPro Text (1)
+  m_Name: Score
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -938,6 +951,12 @@ Prefab:
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2cae32adaa7f449419fb81d92765d215, type: 2}
   m_IsPrefabAsset: 0
+--- !u!114 &469319981 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 114071007981546054, guid: 6220940b3c66faf46949a74b0ee31de3,
+    type: 2}
+  m_PrefabInternal: {fileID: 1566062274}
+  m_Script: {fileID: 11500000, guid: 04f8da2152a169e488196509552fe0d6, type: 3}
 --- !u!1 &492755990
 GameObject:
   m_ObjectHideFlags: 0
@@ -979,6 +998,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerStartingPos: 1
+--- !u!114 &498682213 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 114759668144041480, guid: 0d7498f9d5b7e2940be523b48d432f9e,
+    type: 2}
+  m_PrefabInternal: {fileID: 1465241539}
+  m_Script: {fileID: 11500000, guid: 04f8da2152a169e488196509552fe0d6, type: 3}
 --- !u!1 &580427976
 GameObject:
   m_ObjectHideFlags: 0
@@ -988,6 +1013,7 @@ GameObject:
   m_Component:
   - component: {fileID: 580427977}
   - component: {fileID: 580427978}
+  - component: {fileID: 580427979}
   m_Layer: 5
   m_Name: MainPanel
   m_TagString: Untagged
@@ -1022,6 +1048,17 @@ CanvasRenderer:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 580427976}
   m_CullTransparentMesh: 0
+--- !u!114 &580427979
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 580427976}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6b28b87ca807d024a9dc57431f3db5cf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &616569415
 GameObject:
   m_ObjectHideFlags: 0
@@ -1033,7 +1070,7 @@ GameObject:
   - component: {fileID: 616569418}
   - component: {fileID: 616569417}
   m_Layer: 5
-  m_Name: Image (1)
+  m_Name: Heart (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1069,18 +1106,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 1, g: 0, b: 0, a: 1}
   m_RaycastTarget: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-  m_Sprite: {fileID: 0}
-  m_Type: 0
+  m_Sprite: {fileID: 10913, guid: 0000000000000000f000000000000000, type: 0}
+  m_Type: 3
   m_PreserveAspect: 0
   m_FillCenter: 1
-  m_FillMethod: 4
+  m_FillMethod: 0
   m_FillAmount: 1
   m_FillClockwise: 1
   m_FillOrigin: 0
@@ -1269,7 +1306,7 @@ GameObject:
   - component: {fileID: 812692953}
   - component: {fileID: 812692952}
   m_Layer: 5
-  m_Name: Image (1)
+  m_Name: Heart (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1305,18 +1342,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 1, g: 0, b: 0, a: 1}
   m_RaycastTarget: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-  m_Sprite: {fileID: 0}
-  m_Type: 0
+  m_Sprite: {fileID: 10913, guid: 0000000000000000f000000000000000, type: 0}
+  m_Type: 3
   m_PreserveAspect: 0
   m_FillCenter: 1
-  m_FillMethod: 4
+  m_FillMethod: 0
   m_FillAmount: 1
   m_FillClockwise: 1
   m_FillOrigin: 0
@@ -1345,7 +1382,7 @@ GameObject:
   - component: {fileID: 935550368}
   - component: {fileID: 935550367}
   m_Layer: 5
-  m_Name: Panel
+  m_Name: Heart Panel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1439,7 +1476,7 @@ GameObject:
   - component: {fileID: 1035285726}
   - component: {fileID: 1035285725}
   m_Layer: 5
-  m_Name: TextMeshPro Text (2)
+  m_Name: Score Value
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1713,7 +1750,7 @@ GameObject:
   - component: {fileID: 1125700647}
   - component: {fileID: 1125700646}
   m_Layer: 5
-  m_Name: Image (3)
+  m_Name: Heart (3)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1749,18 +1786,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 1, g: 0, b: 0, a: 1}
   m_RaycastTarget: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-  m_Sprite: {fileID: 0}
-  m_Type: 0
+  m_Sprite: {fileID: 10913, guid: 0000000000000000f000000000000000, type: 0}
+  m_Type: 3
   m_PreserveAspect: 0
   m_FillCenter: 1
-  m_FillMethod: 4
+  m_FillMethod: 0
   m_FillAmount: 1
   m_FillClockwise: 1
   m_FillOrigin: 0
@@ -1878,7 +1915,7 @@ GameObject:
   - component: {fileID: 1177717378}
   - component: {fileID: 1177717377}
   m_Layer: 5
-  m_Name: Panel
+  m_Name: Heart Panel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2133,8 +2170,9 @@ GameObject:
   - component: {fileID: 1360335232}
   - component: {fileID: 1360335234}
   - component: {fileID: 1360335233}
+  - component: {fileID: 1360335235}
   m_Layer: 5
-  m_Name: Panel (1)
+  m_Name: Player2 UI
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2197,6 +2235,18 @@ CanvasRenderer:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1360335231}
   m_CullTransparentMesh: 0
+--- !u!114 &1360335235
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1360335231}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 76bacc1c6da7c574ab15cb3e40ce1591, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  player: {fileID: 498682213}
 --- !u!1 &1385565001
 GameObject:
   m_ObjectHideFlags: 0
@@ -2249,7 +2299,7 @@ GameObject:
   - component: {fileID: 1439226644}
   - component: {fileID: 1439226643}
   m_Layer: 5
-  m_Name: Image
+  m_Name: Selected Element
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2893,7 +2943,7 @@ GameObject:
   - component: {fileID: 1761786464}
   - component: {fileID: 1761786463}
   m_Layer: 5
-  m_Name: TextMeshPro Text (2)
+  m_Name: Score Value
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3431,7 +3481,7 @@ GameObject:
   - component: {fileID: 1851935852}
   - component: {fileID: 1851935851}
   m_Layer: 5
-  m_Name: Image
+  m_Name: Selected Element
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3500,7 +3550,7 @@ GameObject:
   - component: {fileID: 1931262802}
   - component: {fileID: 1931262801}
   m_Layer: 5
-  m_Name: Image (2)
+  m_Name: Heart (2)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3536,18 +3586,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 1, g: 0, b: 0, a: 1}
   m_RaycastTarget: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-  m_Sprite: {fileID: 0}
-  m_Type: 0
+  m_Sprite: {fileID: 10913, guid: 0000000000000000f000000000000000, type: 0}
+  m_Type: 3
   m_PreserveAspect: 0
   m_FillCenter: 1
-  m_FillMethod: 4
+  m_FillMethod: 0
   m_FillAmount: 1
   m_FillClockwise: 1
   m_FillOrigin: 0
@@ -3688,7 +3738,7 @@ GameObject:
   - component: {fileID: 1995638679}
   - component: {fileID: 1995638678}
   m_Layer: 5
-  m_Name: Image (2)
+  m_Name: Heart (2)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3724,18 +3774,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 1, g: 0, b: 0, a: 1}
   m_RaycastTarget: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-  m_Sprite: {fileID: 0}
-  m_Type: 0
+  m_Sprite: {fileID: 10913, guid: 0000000000000000f000000000000000, type: 0}
+  m_Type: 3
   m_PreserveAspect: 0
   m_FillCenter: 1
-  m_FillMethod: 4
+  m_FillMethod: 0
   m_FillAmount: 1
   m_FillClockwise: 1
   m_FillOrigin: 0
@@ -3757,7 +3807,7 @@ GameObject:
   - component: {fileID: 2020434059}
   - component: {fileID: 2020434058}
   m_Layer: 5
-  m_Name: Image (3)
+  m_Name: Heart (3)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3793,18 +3843,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 1, g: 0, b: 0, a: 1}
   m_RaycastTarget: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-  m_Sprite: {fileID: 0}
-  m_Type: 0
+  m_Sprite: {fileID: 10913, guid: 0000000000000000f000000000000000, type: 0}
+  m_Type: 3
   m_PreserveAspect: 0
   m_FillCenter: 1
-  m_FillMethod: 4
+  m_FillMethod: 0
   m_FillAmount: 1
   m_FillClockwise: 1
   m_FillOrigin: 0

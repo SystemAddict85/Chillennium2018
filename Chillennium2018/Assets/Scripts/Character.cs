@@ -9,8 +9,8 @@ public class Character : MonoBehaviour
     public Spell.SpellType activeSpell = Spell.SpellType.GROUND;
 
     [SerializeField]
-    protected float maxHealth;
-    public float currentHealth;
+    protected int maxHealth;
+    public int currentHealth;
         
     public float invincibilityDuration = 0f;
     [SerializeField]
@@ -23,7 +23,7 @@ public class Character : MonoBehaviour
         Destroy(gameObject);
     }
 
-    public void Damage(int amount, Effectiveness effectiveness)
+    public virtual void Damage(int amount, Effectiveness effectiveness)
     {
         var dashing = GetComponent<Dashing>();
         if ((dashing && dashing.isDashing) || effectiveness == Effectiveness.REDUCED || !canBeDamaged)
@@ -44,6 +44,7 @@ public class Character : MonoBehaviour
         }
         if (currentHealth <= 0)
         {
+            currentHealth = 0;
             Die();
         }
 

@@ -10,7 +10,7 @@ public class Player : Character {
 
     private void Awake()
     {
-        maxHealth = 6f;
+        maxHealth = 6;
         currentHealth = maxHealth;
         controller = GetComponent<PlayerController>();
     }
@@ -61,6 +61,18 @@ public class Player : Character {
         GetComponentInChildren<SpriteRenderer>().enabled = true;
     }
 
+    public override void Damage(int amount, Effectiveness effectiveness)
+    {
+        base.Damage(amount, effectiveness);
+        if (controller.playerNumber == Controller.ControllerType.PLAYER_ONE)
+        {
+            UIController.Instance.UpdateHearts(0);
+        }
+        else if(controller.playerNumber == Controller.ControllerType.PLAYER_TWO)
+        {
+            UIController.Instance.UpdateHearts(1);
+        }
+    }
 
     public void PowerUp(Spell.SpellType spellType)
     {
@@ -83,6 +95,14 @@ public class Player : Character {
             currentHealth += toHeal;
             if (currentHealth > maxHealth)
                 currentHealth = maxHealth;
+        }
+        if (controller.playerNumber == Controller.ControllerType.PLAYER_ONE)
+        {
+            UIController.Instance.UpdateHearts(0);
+        }
+        else if (controller.playerNumber == Controller.ControllerType.PLAYER_TWO)
+        {
+            UIController.Instance.UpdateHearts(1);
         }
     }
 }

@@ -33,7 +33,7 @@ public class Projectile : MonoBehaviour
         {
             oppositeLayer = LayerMask.NameToLayer("Enemy");
         }
-        else
+        else if(gameObject.layer == LayerMask.NameToLayer("Enemy Projectile"))
         {
             oppositeLayer = LayerMask.NameToLayer("Player");
         }

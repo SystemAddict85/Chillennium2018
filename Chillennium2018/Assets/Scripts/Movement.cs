@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 
 public class Movement : MonoBehaviour
 {
@@ -8,7 +9,7 @@ public class Movement : MonoBehaviour
     private bool hasController = true;
     private Controller control;
 
-    private bool canMove = true;
+    public bool canMove = true;
 
     private void Awake()
     {
@@ -39,7 +40,7 @@ public class Movement : MonoBehaviour
         {
             transform.position += dir * moveSpeed * Time.deltaTime;
         }
-    }
+    }    
 
     public void SetSpeed(float speed)
     {

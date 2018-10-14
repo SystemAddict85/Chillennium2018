@@ -41,7 +41,7 @@ public class Dashing : MonoBehaviour
 
     private void CheckIfDashing()
     {
-        if (isDashing)
+        if (isDashing && control.hasControl)
         {
             Dash();
         }
@@ -50,8 +50,6 @@ public class Dashing : MonoBehaviour
     private bool CheckBounds(Vector3 pos)
     {
         Vector2 boundary = levelBounds.bounds.extents;
-        Debug.Log(pos);
-        Debug.Log(boundary);
         return Mathf.Abs(pos.x) < Mathf.Abs(boundary.x) && Mathf.Abs(pos.y) < Mathf.Abs(boundary.y);      
     }
 
@@ -65,15 +63,17 @@ public class Dashing : MonoBehaviour
         else
         {
             if (CheckBounds(transform.position + dir * dashSpeed * Time.deltaTime))
+            {
                 transform.position += dir * dashSpeed * Time.deltaTime;
+            }
             else
             {
                 FinishDash();
             }
-        }
-
+        }        
     }
-    private void FinishDash()
+
+    public void FinishDash()
     {
         isDashing = false;
         currentTime = 0;

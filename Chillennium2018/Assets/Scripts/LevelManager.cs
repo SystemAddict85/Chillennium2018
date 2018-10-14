@@ -1,32 +1,37 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System;
+using System.Collections.Generic;
 
 public class LevelManager : MonoBehaviour
 {
-    private bool canWarp = true;
+    public Player Player1;
+    public Player Player2;
 
-    public int totalNumberOfRooms = 5;
+    private bool canWarp = true;
 
     public int roomsVisited = 0;
 
-    public Room[,] rooms;
-    Vector2Int playerCoords;
+    private Room previousRoom;
+    private Room currentRoom;
 
     private static LevelManager _instance;
 
     public static LevelManager Instance { get { return _instance; } }
 
-    public Room GetRoom { get { return rooms[playerCoords.x, playerCoords.y]; } }
-
-    private Room previousRoomToAnimate;
+    public Room GetRoom { get { return currentRoom; } }
 
     [HideInInspector]
-    public bool isAPlayerDead = false;
+    public bool isOnePlayerDead = false;
 
     private Vector2 currentSpawnPos = new Vector2(0f, 0.5f);
 
-    private WarpTile.WarpDirection directionInTransit = WarpTile.WarpDirection.DOWN;
+    private WarpTile.WarpDirection directionInTransit = WarpTile.WarpDirection.UP;
+    private WarpTile.WarpDirection directionOfArrival;
+
+    public Dictionary<WarpTile.WarpDirection, WarpTile> warpTiles = new Dictionary<WarpTile.WarpDirection, WarpTile>();
+
+    public List<Enemy> currentRoomEnemies;
 
     void Awake()
     {
@@ -36,37 +41,70 @@ public class LevelManager : MonoBehaviour
         }
         else if (_instance != this)
         {
-            Destroy(this);
+            Destroy(this.gameObject);
         }
 
-        rooms = new Room[totalNumberOfRooms, totalNumberOfRooms];
-        int coord = (totalNumberOfRooms - 1) / 2;
-        playerCoords = new Vector2Int(coord, coord);
-        InitializeRoom(playerCoords);
+        foreach (var w in GetComponentsInChildren<WarpTile>())
+        {
+            warpTiles.Add(w.warpDir, w);
+        }
+
+        canWarp = false;
+        FindPlayers();
+    }
+    private void Start()
+    {
+        InitializeRoom();
     }
 
-    private void InitializeRoom(Vector2Int coords, bool moveRoom = false)
+    void FindPlayers()
     {
-        var roomGo = Instantiate(Resources.Load("Prefabs/Room"), currentSpawnPos, Quaternion.identity, transform) as GameObject;
-        var room = roomGo.GetComponent<Room>();
+        foreach (var p in FindObjectsOfType<PlayerController>())
+        {
+            var player = p.GetComponent<Player>();
+            if (p.playerNumber == Controller.ControllerType.PLAYER_ONE)
+            {
+                Player1 = player;
+            }
+            else
+            {
+                Player2 = player;
+            }
+        }
+    }
 
-        previousRoomToAnimate = rooms[playerCoords.x, playerCoords.y];        
-        rooms[coords.x, coords.y] = room;
-        playerCoords = coords;
+    private void InitializeRoom(bool moveRoom = false)
+    {
+        if (previousRoom != null)
+        {
+            Destroy(previousRoom.gameObject);
+        }
+
+        Debug.Log("setting previous room to: " + currentRoom);
+        previousRoom = currentRoom;
+
+        var roomGo = Instantiate(Resources.Load("Prefabs/Room"), currentSpawnPos, Quaternion.identity, transform) as GameObject;
+        currentSpawnPos = new Vector2(0, 0.5f);
+        roomGo.name += roomsVisited;
+        currentRoom = roomGo.GetComponent<Room>();
+        currentRoomEnemies = new List<Enemy>();
 
         if (moveRoom)
         {
-            MoveRooms(warpDir);
+            MoveRooms();
+            directionOfArrival = directionInTransit;
         }
-
         roomsVisited++;
+
+        GlobalStuff.FreezeAllMovement();
+        GlobalStuff.LoseAllControl();
+        StartCoroutine(DelayBlockingExits());
     }
-    
+
     private void MoveRooms()
     {
-
         string direction = "";
-        switch (warpDir)
+        switch (directionInTransit)
         {
             case WarpTile.WarpDirection.LEFT:
                 direction = "right";
@@ -80,19 +118,9 @@ public class LevelManager : MonoBehaviour
             case WarpTile.WarpDirection.DOWN:
                 direction = "up";
                 break;
-            default:
-                direction = "";
-                break;
         }
-        if (direction != "")
-        {
-            foreach(var r in GetComponentsInChildren<Room>())
-            {
-                r.StartAnimation(direction);
-            }
-            //previousRoomToAnimate.StartAnimation(direction);
-            //rooms[playerCoords.x, playerCoords.y].StartAnimation(direction);
-        }
+        previousRoom.StartAnimation(direction);
+        currentRoom.StartAnimation(direction);
     }
 
     public void StartWaitToWarp()
@@ -101,7 +129,7 @@ public class LevelManager : MonoBehaviour
         ShowAndTeleportPlayers();
         StartCoroutine(WaitToWarp());
     }
-    
+
     IEnumerator WaitToWarp()
     {
         yield return new WaitForSeconds(3f);
@@ -116,82 +144,113 @@ public class LevelManager : MonoBehaviour
             GlobalStuff.PauseGame();
             HidePlayers();
             canWarp = false;
-            var newCoords = CheckRoomCoords(directionInTransit);
-            Debug.Log(newCoords + " new : old =" + playerCoords);
-            if (newCoords != playerCoords)
-            {
-                InitializeRoom(newCoords, true);
-            }            
+
+            InitializeRoom(true);
         }
     }
 
-    public bool CheckRoomVisit()
+    private void CheckRoomCoords(WarpTile.WarpDirection warpDir)
     {
-        return true;
-    }
-
-    private Vector2Int CheckRoomCoords(WarpTile.WarpDirection warpDir)
-    {
-        Vector2Int addVec = new Vector2Int(0, 0);
         Vector2 spawnPos = Vector2.zero;
         switch (warpDir)
         {
             case WarpTile.WarpDirection.LEFT:
-                addVec = new Vector2Int(-1, 0);
                 spawnPos.x = -17;
                 break;
             case WarpTile.WarpDirection.RIGHT:
-                addVec = new Vector2Int(1, 0);
                 spawnPos.x = 17;
                 break;
             case WarpTile.WarpDirection.UP:
-                addVec = new Vector2Int(0, 1);
                 spawnPos.y = 11.5f;
                 break;
             case WarpTile.WarpDirection.DOWN:
-                addVec = new Vector2Int(0, -1);
                 spawnPos.y = -11.5f;
                 break;
         }
-        Vector2Int resultVec = playerCoords + addVec;
+        currentSpawnPos += spawnPos;
 
-        if ((resultVec.x >= 0 && resultVec.x < rooms.GetLength(0) - 1) && (resultVec.y >= 0 && resultVec.y < rooms.GetLength(1) - 1))
-        {
-            currentSpawnPos += spawnPos;
-            return resultVec;
-        }
-        else
-        {
-            return new Vector2Int(0, 0);
-        }
     }
 
     private void HidePlayers()
     {
-        var players = FindObjectsOfType<Player>();
-        foreach(var p in players)
-        {
-            p.HidePlayer();
-        }
+        if (!Player1.isPlayerDead)
+            Player1.HidePlayer();
+        if (!Player2.isPlayerDead)
+            Player2.HidePlayer();
     }
 
     private void ShowAndTeleportPlayers()
     {
-        WarpTile.WarpDirection oppWarp = WarpTile.GetOppositeDirection(directionInTransit);
-        var players = FindObjectsOfType<Player>();
+        WarpTile.WarpDirection warp = WarpTile.GetOppositeDirection(directionInTransit);
+
         var room = GetRoom;
-        foreach (var p in players)
+
+        if (!Player1.isPlayerDead)
         {
-            room.warpTiles[oppWarp].GetPlayerStartingPosition(p.GetComponent<PlayerController>().playerNumber);
-            p.ShowPlayer();
+            Player1.transform.position = warpTiles[warp].GetPlayerStartingPosition(Player1.controller.playerNumber);
+            Player1.ShowPlayer();
+        }
+
+        if (!Player2.isPlayerDead)
+        {
+            Player2.transform.position = warpTiles[warp].GetPlayerStartingPosition(Player2.controller.playerNumber);
+            Player2.ShowPlayer();
         }
     }
 
+    IEnumerator DelayBlockingExits()
+    {
+        yield return new WaitForSeconds(1f);
+        BlockExits();
+        GlobalStuff.UnfreezeAll();
+        GlobalStuff.RegainAllControl();
+        EnemySpawner.Instance.Initialize();
+    }
 
     public void ClearRoom()
     {
         canWarp = true;
-        //insert logic to show exits
+        UnblockAllButPreviousExit();
+    }
+
+    public void BlockExits()
+    {
+        foreach (var w in warpTiles.Values)
+        {
+            w.block.Block();
+        }
+    }
+
+    public void UnblockAllButPreviousExit()
+    {
+        foreach (var w in warpTiles.Values)
+        {
+            if (w == warpTiles[directionOfArrival] && roomsVisited > 1)
+            {
+                w.block.Block();
+            }
+            else
+            {
+                w.block.Unblock();
+            }
+        }
+    }
+
+    public void AddEnemy(Enemy enemy)
+    {
+        currentRoomEnemies.Add(enemy);
+    }
+
+    public void RemoveEnemyAndCheckForRoomComplete(Enemy enemy)
+    {
+        currentRoomEnemies.Remove(enemy);
+        Destroy(enemy.gameObject);
+
+        if (currentRoomEnemies.Count == 0)
+        {
+            currentRoom.isRoomComplete = true;
+            ClearRoom();
+        }
     }
 
 }

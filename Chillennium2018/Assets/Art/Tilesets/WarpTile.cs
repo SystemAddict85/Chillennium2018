@@ -9,9 +9,12 @@ public class WarpTile : MonoBehaviour {
         
     public WarpDirection warpDir;
 
+    public ExitBlock block;
+
     public void Awake()
     {
         GetComponent<SpriteRenderer>().enabled = false;
+        block = GetComponentInChildren<ExitBlock>();
     }
 
     private void OnTriggerEnter2D(Collider2D col)
@@ -23,12 +26,13 @@ public class WarpTile : MonoBehaviour {
     }
 
     public Vector2 GetPlayerStartingPosition(Controller.ControllerType controllerPlayer)
-    {
+    {        
         var playerPos = (WarpStartingPosition.PlayerPosition)controllerPlayer;
         var starts = GetComponentsInChildren<WarpStartingPosition>();
         var pos = starts[0].playerStartingPos == playerPos ? starts[0].transform.position : starts[1].transform.position;
         return pos;        
     }
+
 
     public static WarpDirection GetOppositeDirection(WarpDirection wDir)
     {

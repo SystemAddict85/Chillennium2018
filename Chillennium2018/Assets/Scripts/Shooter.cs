@@ -17,12 +17,6 @@ public class Shooter : MonoBehaviour
         controller = GetComponent<Controller>();
     }
 
-    private void Update()
-    {       
-           
-     
-    }
-
     IEnumerator WaitToShoot()
     {
         readyToShoot = false;

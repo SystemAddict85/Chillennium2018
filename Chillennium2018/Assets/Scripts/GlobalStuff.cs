@@ -24,5 +24,49 @@ public static class GlobalStuff
             Time.timeScale = originalTimeScale;            
         }
     }
+
+    public static void FreezeSpawning()
+    {
+        MonoBehaviour.FindObjectOfType<EnemySpawner>().ToggleSpawning(false);
+    }
+
+    public static void FreezeAllMovement()
+    {
+        foreach(var m in MonoBehaviour.FindObjectsOfType<Movement>())
+        {
+            m.ToggleMovement(false);
+        }
+        foreach(var d in MonoBehaviour.FindObjectsOfType<Dashing>())
+        {
+            d.FinishDash();
+        }
+    }
+    
+    public static void UnfreezeAll()
+    {
+        foreach (var m in MonoBehaviour.FindObjectsOfType<Movement>())
+        {
+            m.ToggleMovement(true);
+        }
+    }
+    public static void LoseAllControl()
+    {
+        foreach (var c in MonoBehaviour.FindObjectsOfType<Controller>())
+        {
+            c.LoseControl();
+        }
+    }
+    public static void RegainAllControl()
+    {
+        foreach (var c in MonoBehaviour.FindObjectsOfType<Controller>())
+        {
+            c.GainControl();
+        }
+    }
+
+    public static void UnfreezeSpawning()
+    {
+        MonoBehaviour.FindObjectOfType<EnemySpawner>().ToggleSpawning(true);
+    }
 }
 

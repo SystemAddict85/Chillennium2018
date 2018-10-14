@@ -21,8 +21,11 @@ public class Spell : MonoBehaviour
     }
     void Update()
     {
-        CheckSpells();
-        CheckForShoot();
+        if (control.hasControl)
+        {
+            CheckSpells();
+            CheckForShoot();
+        }
     }
 
     private void CheckForShoot()

@@ -36,7 +36,7 @@ GameObject:
   - component: {fileID: 4835644391736932}
   - component: {fileID: 114926920024298726}
   m_Layer: 0
-  m_Name: Ice Spell Pool
+  m_Name: Water Spell Pool
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

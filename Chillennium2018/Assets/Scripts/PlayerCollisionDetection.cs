@@ -43,11 +43,7 @@ public class PlayerCollisionDetection : MonoBehaviour
             if (col.gameObject.layer == LayerMask.NameToLayer("Player"))
             {
                 CollideWithPlayer(col.collider);
-            }
-            else if (col.gameObject.layer == LayerMask.NameToLayer("Player Projectile"))
-            {
-                CollideWithProjectile(col.collider);
-            }
+            }         
         }
     }
 
@@ -70,14 +66,6 @@ public class PlayerCollisionDetection : MonoBehaviour
             }
         }
     }
-
-    private void CollideWithProjectile(Collider2D col)
-    {
-        var enemy = GetComponent<Enemy>();
-        enemy.Damage(1, Character.DetermineDefenseEffect(enemy.activeSpell, col.GetComponent<Projectile>().spellType));
-    }
-
-
 
     private void CollideWithPlayer(Collider2D col)
     {

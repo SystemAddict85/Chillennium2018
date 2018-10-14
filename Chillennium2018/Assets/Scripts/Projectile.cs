@@ -57,29 +57,43 @@ public class Projectile : MonoBehaviour
         move.SetSpeed(speed);
         gameObject.SetActive(true);
         timerStarted = true;
-    }    
+    }
 
     private void Update()
     {
-        if (timerStarted)
+        if (move.canMove)
         {
-            currentTime += Time.deltaTime;
-            if (currentTime >= lifeDuration)
+            if (timerStarted)
             {
-                timerStarted = false;
-                currentTime = 0f;
-                gameObject.SetActive(false);
-                parentPool.Return(this);
+                currentTime += Time.deltaTime;
+                if (currentTime >= lifeDuration)
+                {
+                    timerStarted = false;
+                    currentTime = 0f;
+                    gameObject.SetActive(false);
+                    parentPool.Return(this);
+                }
             }
-        }
 
-        move.Move(direction);
+            move.Move(direction);
+        }
     }
 
     private void OnTriggerEnter2D(Collider2D col)
     {
         if (col.gameObject.layer == oppositeLayer)
         {
+            if(oppositeLayer == LayerMask.NameToLayer("Enemy"))
+            {
+                var enemy = col.gameObject.GetComponent<Enemy>();
+                enemy.Damage(1, Character.DetermineAttackEffect(spellType, enemy.activeSpell));
+            }            
+            else if(oppositeLayer == LayerMask.NameToLayer("Player"))
+            {
+                var player = col.gameObject.GetComponent<Player>();
+                player.Damage(1, Character.DetermineAttackEffect(spellType, player.activeSpell));
+            }
+
             timerStarted = false;
             currentTime = 0f;
             gameObject.SetActive(false);

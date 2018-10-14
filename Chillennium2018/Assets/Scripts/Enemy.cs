@@ -3,9 +3,12 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class Enemy : Character  {
+
+    private float enemyStartingHealth;
+
     private void Awake()
     {
-        maxHealth = 10f;
+        maxHealth = enemyStartingHealth;
         currentHealth = maxHealth;
     }
 
@@ -21,13 +24,13 @@ public class Enemy : Character  {
         {
             Debug.Log("todo: drop Health");
         }
-        else if (chanceToDrop >= 20f && chanceToDrop <= 24f && LevelManager.Instance.isAPlayerDead)
-        {//revive
+        else if (chanceToDrop >= 20f && chanceToDrop <= 24f && LevelManager.Instance.isOnePlayerDead)
+        {
             Debug.Log("todo: drop Revive");
         }
 
-        LevelManager.Instance.GetRoom.RemoveEnemyAndCheckForRoomComplete(this);
-        base.Die();
+        LevelManager.Instance.RemoveEnemyAndCheckForRoomComplete(this);
+        
     }
 
 }

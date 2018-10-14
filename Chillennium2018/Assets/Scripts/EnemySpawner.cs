@@ -2,39 +2,58 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EnemySpawner : MonoBehaviour {
+public class EnemySpawner : MonoBehaviour
+{
+
+    private static EnemySpawner _instance;
+    public static EnemySpawner Instance { get { return _instance; } }
 
     public float spawnInterval;
     private bool isReadyToSpawn = false;
     private float currentTime;
-    private Room room;
     private BoxCollider2D boxCollider2D;
 
+    private bool canSpawn = true;
 
     [SerializeField]
     private int initialSpawnAmount = 0;
 
-    private string[] allEnemyNames= {"Ground Enemy", "Lightning Enemy", "Water Enemy"};
+    private string[] allEnemyNames = { "Ground Enemy", "Lightning Enemy", "Water Enemy" };
 
     [SerializeField]
     private string[] enemyNames;
     private Queue<string> enemyNamesToSpawn = new Queue<string>();
-    
+
+    [SerializeField]
+    private int numNames = 10;
+
     private void Awake()
     {
-        
-        if(enemyNames.Length == 0)
+        if (_instance == null)
         {
-            Debug.Log("Put enemy names into array");
-            for (int i = 0; i < 10; i++) // change 10 to howmany names we need I guess
+            _instance = this;
+        }
+        else if (_instance != this)
+        {
+            Destroy(this.gameObject);
+        }
+
+        InitializeQueue();
+    }
+
+    private void InitializeQueue()
+    {
+        if (enemyNames.Length == 0)
+        {
+            for (int i = 0; i < numNames; i++) // change 10 to howmany names we need I guess
             {
-                int index = (int)Random.Range(0f, (float)allEnemyNames.Length);
+                int index = Random.Range(0, allEnemyNames.Length);
                 enemyNamesToSpawn.Enqueue(allEnemyNames[index]);
             }
         }
         else
         {
-            foreach(var e in enemyNames)
+            foreach (var e in enemyNames)
             {
                 enemyNamesToSpawn.Enqueue(e);
             }
@@ -44,13 +63,17 @@ public class EnemySpawner : MonoBehaviour {
     private void Start()
     {
         boxCollider2D = LevelManager.Instance.GetComponent<BoxCollider2D>();
-        room = LevelManager.Instance.GetRoom;
-        Initialize();
     }
 
     void Update()
     {
-        CheckForSpawn();
+        if (canSpawn)
+            CheckForSpawn();
+    }
+
+    public void ToggleSpawning(bool enabled)
+    {
+        canSpawn = enabled;
     }
 
     private void CheckForSpawn()
@@ -62,11 +85,12 @@ public class EnemySpawner : MonoBehaviour {
             {
                 currentTime = 0;
                 var enemyToSpawn = enemyNamesToSpawn.Dequeue();
-                if (enemyNamesToSpawn.Count == 0) {
+                if (enemyNamesToSpawn.Count == 0)
+                {
                     isReadyToSpawn = false;
                 }
-                
-                
+
+
                 Spawn(SpawnBounds(), enemyToSpawn);
 
             }
@@ -83,34 +107,18 @@ public class EnemySpawner : MonoBehaviour {
 
     private void Spawn(Vector2 pos, string enemyName)
     {
-        Debug.Log("spawning " + enemyName + " at: " + pos);
-        var enemy = Instantiate(Resources.Load("Prefabs/" + enemyName), pos, Quaternion.identity) as Enemy;
-        room.AddEnemy(enemy);
+        var enemyGo = Instantiate(Resources.Load("Prefabs/" + enemyName), pos, Quaternion.identity) as GameObject;
+        var enemy = enemyGo.GetComponent<Enemy>();
+        LevelManager.Instance.AddEnemy(enemy);
     }
 
-    private void Initialize()
+    public void Initialize()
     {
+        InitializeQueue();
         isReadyToSpawn = false;
-        currentTime = 0;
-        InitialSpawn();
-    }
-
-    private void InitialSpawn()
-    {
-        for(int i = 0; i < initialSpawnAmount; ++i)
-        {
-            var enemyToSpawn = enemyNamesToSpawn.Dequeue();
-            Debug.Log("dequeued: " + enemyToSpawn);
-            Spawn(SpawnBounds(), enemyToSpawn);
-
-            if (enemyNamesToSpawn.Count == 0)
-            {
-                isReadyToSpawn = false;                
-                break;
-            }
-        }
+        currentTime = 0f;
         isReadyToSpawn = true;
     }
 
-    
+
 }

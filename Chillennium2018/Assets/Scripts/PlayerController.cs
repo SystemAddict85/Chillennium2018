@@ -7,18 +7,62 @@ public class PlayerController : Controller
     private bool isDashing = false;
     private Vector2 lastMove;
 
+    private Ultimate ultimate;
+
+    private bool isUltimateReady = true;
+
+    protected override void Awake()
+    {
+        base.Awake();
+        ultimate = GetComponentInChildren<Ultimate>();
+    }
+
     protected override void Update()
     {
-        GetMovementVector();
-        GetRightStick();
+        if (hasControl)
+        {
+            if (!CheckForUltimate())
+            {
+                GetMovementVector();
+                GetRightStick();
+            }
+            else
+            {
+                lastMove = Vector2.zero;
+            }
+        }
+        else
+        {
+            lastMove = Vector2.zero;
+        }
+
     }
 
     private void LateUpdate()
     {
-        if (lastMove != Vector2.zero && !isDashing)
+        if (hasControl && lastMove != Vector2.zero && !isDashing)
         {
             GetDashButton();
         }
+    }
+
+    private bool CheckForUltimate()
+    {
+        if (isUltimateReady) {
+            var input = "Ultimate" + ((int)playerNumber + 1).ToString();            
+            if (Input.GetButtonDown(input))
+            {
+                isUltimateReady = false;
+                ultimate.ActivateUltimate();
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public void EnableUltimate()
+    {
+        isUltimateReady = true;
     }
 
     public void FinishDashing()
@@ -102,19 +146,26 @@ public class PlayerController : Controller
 
     private void GetMovementVector()
     {
-        string hor = "Horizontal", vert = "Vertical";
-        if (playerNumber == ControllerType.PLAYER_ONE)
+        if (hasControl)
         {
-            hor += "1";
-            vert += "1";
+            string hor = "Horizontal", vert = "Vertical";
+            if (playerNumber == ControllerType.PLAYER_ONE)
+            {
+                hor += "1";
+                vert += "1";
+            }
+            else
+            {
+                hor += "2";
+                vert += "2";
+            }
+            horizontal = Input.GetAxisRaw(hor);
+            vertical = Input.GetAxisRaw(vert);
+            lastMove = new Vector2(horizontal, vertical);
         }
         else
         {
-            hor += "2";
-            vert += "2";
+            lastMove = new Vector3(0f, 0f);
         }
-        horizontal = Input.GetAxisRaw(hor);
-        vertical = Input.GetAxisRaw(vert);
-        lastMove = new Vector2(horizontal, vertical);
     }
 }

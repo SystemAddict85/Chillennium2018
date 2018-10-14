@@ -6,6 +6,8 @@ public class Controller : MonoBehaviour
 {
     public enum ControllerType { PLAYER_ONE, PLAYER_TWO, ENEMY };
 
+    public bool hasControl = true;
+
     protected Character character;
 
     protected float horizontal;
@@ -22,9 +24,20 @@ public class Controller : MonoBehaviour
     {
         character = GetComponent<Character>();
     }
-    
     protected virtual void Update()
     {
 
+    }
+    public void LoseControl()
+    {
+        hasControl = false;
+        horizontal = 0f;
+        vertical = 0f;
+        horizontalAim = 0f;
+        verticalAim = 0f;
+    }
+    public void GainControl()
+    {
+        hasControl = true;
     }
 }

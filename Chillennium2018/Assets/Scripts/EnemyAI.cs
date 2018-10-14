@@ -26,7 +26,7 @@ public class EnemyAI : MonoBehaviour {
     {
         if (canThink)
         {
-            if (playerTarget)
+            if (playerTarget && !playerTarget.isPlayerDead)
             {
                 EnemyMove();
             }
@@ -39,21 +39,27 @@ public class EnemyAI : MonoBehaviour {
     }
 
     private void FindNearestPlayer()
-    {
-        var players = FindObjectsOfType<Player>();
-
+    {        
         Player closestPlayer = null;
         float closestDistance = float.MaxValue;
-        foreach(var p in players)
+
+        var player1 = LevelManager.Instance.Player1;
+        var player2 = LevelManager.Instance.Player2;
+
+        if (!player1.isPlayerDead)
         {
-            var dist = DistanceToPlayer(p.transform);
-            if (dist < closestDistance)
-            {
-                closestDistance = dist;
-                closestPlayer = p;
-            }
+            closestPlayer = player1;
+            closestDistance = DistanceToPlayer(player1.transform);
         }
+        var distToPlay2 = DistanceToPlayer(player2.transform);
+        if (!player2.isPlayerDead && distToPlay2 < closestDistance)
+        {
+            closestDistance = distToPlay2;
+            closestPlayer = player2;
+        }
+
         playerTarget = closestPlayer;
+
         canThink = true;
     }
 

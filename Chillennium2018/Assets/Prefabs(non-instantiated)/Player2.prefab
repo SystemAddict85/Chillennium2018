@@ -109,8 +109,8 @@ GameObject:
   - component: {fileID: 114550761452522570}
   - component: {fileID: 114850790135926762}
   - component: {fileID: 50975916691500586}
+  - component: {fileID: 114628058655995876}
   - component: {fileID: 61977100040574760}
-  - component: {fileID: 114020250665488392}
   m_Layer: 8
   m_Name: Player2
   m_TagString: Untagged
@@ -180,7 +180,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1979609750926720}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 1.733, y: -0.107, z: -0.014164453}
+  m_LocalPosition: {x: -2.9153967, y: 3.9767005, z: -0.014164453}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4760722595912104}
@@ -219,7 +219,7 @@ Rigidbody2D:
   m_Material: {fileID: 0}
   m_Interpolate: 0
   m_SleepingMode: 1
-  m_CollisionDetection: 0
+  m_CollisionDetection: 1
   m_Constraints: 4
 --- !u!61 &61977100040574760
 BoxCollider2D:
@@ -264,17 +264,6 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
---- !u!114 &114020250665488392
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1979609750926720}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 48e651dae94375b41b177c679ae06ec1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &114183254967646324
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -286,7 +275,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1846127e5bfae2b4ab7ea4bf8d502ff3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  spellButtons: []
+  spellButtons:
+  - {fileID: 114943704806975132}
+  - {fileID: 114491424332745862}
+  - {fileID: 114296679016304986}
 --- !u!114 &114296679016304986
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -352,6 +344,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerNumber: 1
+--- !u!114 &114628058655995876
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1979609750926720}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7b6727c1261fdc849affb8ac54e06d78, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isDashing: 0
+  dashSpeed: 6
+  dashTime: 0.25
 --- !u!114 &114759668144041480
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -364,10 +370,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   activeSpell: 0
-  maxHealth: 0
-  currentHealth: 0
-  invincibilityDuration: 0
+  maxHealth: 6
+  currentHealth: 4
+  invincibilityDuration: 1
+  blinkIntervals: 10
   canBeDamaged: 1
+  isPlayerDead: 0
 --- !u!114 &114850790135926762
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -519,7 +527,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300004, guid: 5d1cd0d8b436862488f22b487b8664ac, type: 3}
+  m_Sprite: {fileID: 21300006, guid: 5d1cd0d8b436862488f22b487b8664ac, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0

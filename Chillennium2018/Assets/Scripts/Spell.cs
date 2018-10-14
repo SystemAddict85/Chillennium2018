@@ -11,13 +11,13 @@ public class Spell : MonoBehaviour
     public enum SpellType { GROUND, LIGHTNING, WATER };
     private PlayerController control;
     private Shooter shoot;
-
-    private SpellType activeSpell = SpellType.GROUND;
+    private Character character;
 
     private void Awake()
     {
         control = GetComponent<PlayerController>();
         shoot = GetComponent<Shooter>();
+        character = GetComponent<Character>();
     }
     void Update()
     {
@@ -29,7 +29,7 @@ public class Spell : MonoBehaviour
     {
         if (Mathf.Abs(control.HorizontalAim) > 0 || Mathf.Abs(control.VerticalAim) > 0)
         {
-            shoot.Shoot((int)activeSpell);
+            shoot.Shoot((int)character.activeSpell);
         }
     }
 
@@ -40,9 +40,7 @@ public class Spell : MonoBehaviour
         if (spellInt != -1)
         {
             SpellType spell = (SpellType)spellInt;
-            activeSpell = spell;
-            //change player SpellType
-            //Debug.Log(spell);
+            character.activeSpell = spell;
             foreach (var s in spellUI.spellButtons)
                 if (s.spellType == spell)
                 {

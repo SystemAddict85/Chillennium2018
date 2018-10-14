@@ -22,7 +22,7 @@ public class EnemySpawner : MonoBehaviour {
     
     private void Awake()
     {
-        boxCollider2D = GetComponent<BoxCollider2D>();
+        
         if(enemyNames.Length == 0)
         {
             Debug.Log("Put enemy names into array");
@@ -43,6 +43,7 @@ public class EnemySpawner : MonoBehaviour {
 
     private void Start()
     {
+        boxCollider2D = LevelManager.Instance.GetComponent<BoxCollider2D>();
         room = LevelManager.Instance.GetRoom;
         Initialize();
     }
@@ -71,6 +72,7 @@ public class EnemySpawner : MonoBehaviour {
             }
         }
     }
+
     private Vector2 SpawnBounds()
     {
         Vector2 spawnBounds = boxCollider2D.bounds.extents;
@@ -78,6 +80,7 @@ public class EnemySpawner : MonoBehaviour {
         spawnBounds.y = Random.Range(-spawnBounds.y, spawnBounds.y);
         return spawnBounds;
     }
+
     private void Spawn(Vector2 pos, string enemyName)
     {
         Debug.Log("spawning " + enemyName + " at: " + pos);

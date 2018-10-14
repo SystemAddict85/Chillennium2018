@@ -26,6 +26,8 @@ public class LevelManager : MonoBehaviour
 
     private Vector2 currentSpawnPos = new Vector2(0f, 0.5f);
 
+    private WarpTile.WarpDirection directionInTransit = WarpTile.WarpDirection.DOWN;
+
     void Awake()
     {
         if (_instance == null)
@@ -43,9 +45,9 @@ public class LevelManager : MonoBehaviour
         InitializeRoom(playerCoords);
     }
 
-    private void InitializeRoom(Vector2Int coords, bool moveRoom = false, WarpTile.WarpDirection warpDir = WarpTile.WarpDirection.DOWN)
+    private void InitializeRoom(Vector2Int coords, bool moveRoom = false)
     {
-        var roomGo = Instantiate(Resources.Load("Prefabs/Tilemap"), currentSpawnPos, Quaternion.identity, transform) as GameObject;
+        var roomGo = Instantiate(Resources.Load("Prefabs/Room"), currentSpawnPos, Quaternion.identity, transform) as GameObject;
         var room = roomGo.GetComponent<Room>();
 
         previousRoomToAnimate = rooms[playerCoords.x, playerCoords.y];        
@@ -60,7 +62,7 @@ public class LevelManager : MonoBehaviour
         roomsVisited++;
     }
     
-    private void MoveRooms(WarpTile.WarpDirection warpDir)
+    private void MoveRooms()
     {
 
         string direction = "";
@@ -84,25 +86,37 @@ public class LevelManager : MonoBehaviour
         }
         if (direction != "")
         {
-            previousRoomToAnimate.StartAnimation(direction);
-            rooms[playerCoords.x, playerCoords.y].StartAnimation(direction);
+            foreach(var r in GetComponentsInChildren<Room>())
+            {
+                r.StartAnimation(direction);
+            }
+            //previousRoomToAnimate.StartAnimation(direction);
+            //rooms[playerCoords.x, playerCoords.y].StartAnimation(direction);
         }
     }
 
+    public void StartWaitToWarp()
+    {
+        GlobalStuff.UnpauseGame();
+        ShowAndTeleportPlayers();
+        StartCoroutine(WaitToWarp());
+    }
+    
     IEnumerator WaitToWarp()
     {
-        yield return new WaitForSeconds(2f);
+        yield return new WaitForSeconds(3f);
         canWarp = true;
     }
 
     public void Warp(WarpTile.WarpDirection warpDir)
     {
+        directionInTransit = warpDir;
         if (canWarp)
         {
             GlobalStuff.PauseGame();
             HidePlayers();
             canWarp = false;
-            var newCoords = CheckRoomCoords(warpDir);
+            var newCoords = CheckRoomCoords(directionInTransit);
             Debug.Log(newCoords + " new : old =" + playerCoords);
             if (newCoords != playerCoords)
             {
@@ -161,11 +175,14 @@ public class LevelManager : MonoBehaviour
         }
     }
 
-    private void ShowPlayers()
+    private void ShowAndTeleportPlayers()
     {
+        WarpTile.WarpDirection oppWarp = WarpTile.GetOppositeDirection(directionInTransit);
         var players = FindObjectsOfType<Player>();
+        var room = GetRoom;
         foreach (var p in players)
         {
+            room.warpTiles[oppWarp].GetPlayerStartingPosition(p.GetComponent<PlayerController>().playerNumber);
             p.ShowPlayer();
         }
     }
@@ -176,4 +193,5 @@ public class LevelManager : MonoBehaviour
         canWarp = true;
         //insert logic to show exits
     }
+
 }

@@ -9,7 +9,7 @@ public class Dashing : MonoBehaviour
 
     [SerializeField]
     private float dashSpeed = 8f;
-    private Controller control;
+    private PlayerController control;
     private Vector3 dir;
     private Collider2D levelBounds;
 
@@ -19,12 +19,12 @@ public class Dashing : MonoBehaviour
 
     private void Awake()
     {
-        control = GetComponent<Controller>();
+        control = GetComponent<PlayerController>();
     }
 
     public void SetDashDirection(Vector3 dir)
     {
-        this.dir = dir;
+        this.dir = dir.normalized;
         isDashing = true;
         GetComponent<Movement>().ToggleMovement(false);
     }
@@ -77,7 +77,7 @@ public class Dashing : MonoBehaviour
     {
         isDashing = false;
         currentTime = 0;
-        GetComponent<PlayerController>().FinishDashing();
+        control.FinishDashing();
         GetComponent<Movement>().ToggleMovement(true);
     }
     

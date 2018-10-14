@@ -7,13 +7,14 @@ public class EnemySpawner : MonoBehaviour {
     public float spawnInterval;
     private bool isReadyToSpawn = false;
     private float currentTime;
-    public GameObject enemy;
     private Room room;
+    private BoxCollider2D boxCollider2D;
+
 
     [SerializeField]
     private int initialSpawnAmount = 0;
 
-
+    private string[] allEnemyNames= {"Ground Enemy", "Lightning Enemy", "Water Enemy"};
 
     [SerializeField]
     private string[] enemyNames;
@@ -21,9 +22,15 @@ public class EnemySpawner : MonoBehaviour {
     
     private void Awake()
     {
+        boxCollider2D = GetComponent<BoxCollider2D>();
         if(enemyNames.Length == 0)
         {
             Debug.Log("Put enemy names into array");
+            for (int i = 0; i < 10; i++)
+            {
+                int index = (int)Random.Range(0f, (float)allEnemyNames.Length);
+                enemyNamesToSpawn.Enqueue(allEnemyNames[index]);
+            }
         }
         else
         {
@@ -47,7 +54,7 @@ public class EnemySpawner : MonoBehaviour {
 
     private void CheckForSpawn()
     {
-        if (isReadyToSpawn)
+        if (isReadyToSpawn && enemyNamesToSpawn.Count > 0)
         {
             currentTime += Time.deltaTime;
             if (currentTime >= spawnInterval)
@@ -57,12 +64,20 @@ public class EnemySpawner : MonoBehaviour {
                 if (enemyNamesToSpawn.Count == 0) {
                     isReadyToSpawn = false;
                 }
-                Spawn(enemy.transform.position, enemyToSpawn);
+                
+                
+                Spawn(SpawnBounds(), enemyToSpawn);
 
             }
         }
     }
-
+    private Vector2 SpawnBounds()
+    {
+        Vector2 spawnBounds = boxCollider2D.bounds.extents;
+        spawnBounds.x = Random.Range(-spawnBounds.x, spawnBounds.x);
+        spawnBounds.y = Random.Range(-spawnBounds.y, spawnBounds.y);
+        return spawnBounds;
+    }
     private void Spawn(Vector2 pos, string enemyName)
     {
         Debug.Log("spawning " + enemyName + " at: " + pos);
@@ -83,7 +98,7 @@ public class EnemySpawner : MonoBehaviour {
         {
             var enemyToSpawn = enemyNamesToSpawn.Dequeue();
             Debug.Log("dequeued: " + enemyToSpawn);
-            Spawn(enemy.transform.position, enemyToSpawn);
+            Spawn(SpawnBounds(), enemyToSpawn);
 
             if (enemyNamesToSpawn.Count == 0)
             {

@@ -25,7 +25,7 @@ GameObject:
   - component: {fileID: 114006051193921028}
   - component: {fileID: 95071298851877070}
   m_Layer: 10
-  m_Name: WaterProjectile
+  m_Name: IceProjectile
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
